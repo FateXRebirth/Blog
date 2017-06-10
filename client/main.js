@@ -1,8 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import React from 'react';
 import { render } from 'react-dom';
-import HelloWorld from './components/helloworld.jsx'
+import Layout from './components/layout.jsx';
 
 Meteor.startup(() => {
-  render(<Home />, document.getElementById('app'));
+  render(<Layout />, document.getElementById('react-layout'));
 });
