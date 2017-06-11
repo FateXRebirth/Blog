@@ -1,9 +1,11 @@
 import React from 'react';
+import Navbar from './navbar'
 
 export default class Header extends React.Component {
   render() {
-    return (
-      <h1>Feature Page</h1>
-    );
+    return <div className="header">
+      <h1>Header Page</h1>
+      <Navbar />
+    </div>
   }
 }

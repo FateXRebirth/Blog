@@ -6,6 +6,8 @@ import Layout from './../components/layout.jsx';
 import Header from './../components/header.jsx';
 import Navbar from './../components/navbar.jsx';
 import Intro from './../components/intro.jsx'
+import Feature from './../components/feature.jsx'
+import Article from './../components/article.jsx'
 import Info from './../components/info.jsx'
 import Footer from './../components/footer.jsx';
 
@@ -31,6 +33,8 @@ FlowRouter.route('/', {
             header: <Header />,
             navbar: <Navbar />,
             intro: <Intro />,
+            feature: <Feature />,
+            article: <Article />,
             info: <Info />,
             footer: <Footer />
         });

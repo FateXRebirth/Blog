@@ -1,1 +1,44 @@
 /* CSS declarations go here */
+
+#react-layout {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0, auto;
+}
+
+.header {
+    height: 600px;
+    background-color: yellow;
+}
+
+.intro {
+    height: 600px;
+    background-color: red;
+}
+
+.feature {
+    height: 600px;
+    background-color: blue;
+}
+
+.article {
+    height: 600px;
+    background-color: gray;
+}
+
+.info {
+    height: 150px;
+    background-color: orange;
+}
+
+.info li {
+    list-style: none;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.footer {
+    height: 50px;
+    background-color: green;
+}
+

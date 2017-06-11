@@ -5,10 +5,11 @@ export default class Layout extends React.Component {
     return <div>
       <header>
         {this.props.header}
-        {this.props.navbar}
       </header>
       <main>
         {this.props.intro}
+        {this.props.feature}
+        {this.props.article}
         {this.props.info}
       </main>
       <footer>

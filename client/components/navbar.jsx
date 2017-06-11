@@ -2,8 +2,12 @@ import React from 'react';
 
 export default class Navbar extends React.Component {
   render() {
-    return (
-      <h1>Navbar Page</h1>
-    );
+    return <div>
+      <ul className="nav nav-tabs">
+        <li role="presentation" className="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="#">Profile</a></li>
+        <li role="presentation"><a href="#">Messages</a></li>
+      </ul>
+      </div>
   }
 }
