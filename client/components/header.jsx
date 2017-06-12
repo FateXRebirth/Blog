@@ -4,7 +4,7 @@ import Navbar from './navbar'
 export default class Header extends React.Component {
   render() {
     return <div className="header">
-      <h1>Header Page</h1>
+      <img src=""/>
       <Navbar />
     </div>
   }
