@@ -7,12 +7,17 @@ export default class Layout extends React.Component {
         {this.props.header}
       </header>
       <main>
+        <hr/>
         {this.props.article}
+        <hr/> 
         {this.props.intro}
-        {this.props.feature}        
+        <hr/>
+        {this.props.feature}    
+        <hr/>
         {this.props.info}
       </main>
       <footer>
+        <hr/>
         {this.props.footer}
       </footer>
     </div>
