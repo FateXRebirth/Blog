@@ -3,8 +3,29 @@ import React from 'react';
 export default class Info extends React.Component {
   render() {
     return <div className="info">
-      <div className="row">
-        
+      <div className="info-title">
+        - Our Clients - 
+      </div>
+      <div className="row">        
+        <div className="col-md-2 info-img">
+          <img src="logos/mit-logo.jpg"/>
+        </div>
+        <div className="col-md-2 info-img">
+          <img src="logos/harvard-logo.png"/>
+        </div>
+        <div className="col-md-2 info-img">
+          <img src="logos/stanford-logo.png"/>
+        </div>
+        <div className="col-md-2 info-img">
+          <img src="logos/logo-ucberkeley.png"/>
+        </div>
+        <div className="col-md-2 info-img">
+          <img src="logos/uiuc_logo.jpg"/>
+        </div>
+      </div>
+      <hr/>
+
+      <div className="row">        
         <div className="col-md-2 col-md-offset-2">
           <div className="info-item">                
           <ul>            
