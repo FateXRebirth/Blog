@@ -41,22 +41,19 @@ FlowRouter.route('/', {
     }
 })
 
-FlowRouter.route('/login', {
-    name: 'login',
+FlowRouter.route('/index', {
+    name: 'home',
     action() {
         mounter(Layout, {
-            content: <Login />,
+            header: <Header />,
+            navbar: <Navbar />,
+            intro: <Intro />,
+            feature: <Feature />,
+            article: <Article />,
+            info: <Info />,
+            footer: <Footer />
         });
-    },
-})
-
-FlowRouter.route('/register', {
-    name: 'register',
-    action() {
-        mounter(Layout, {
-            content: <Register />,
-        });
-    },
+    }
 })
 
 FlowRouter.notFound = {

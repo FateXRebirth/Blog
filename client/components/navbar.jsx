@@ -1,4 +1,6 @@
 import React from 'react';
+import Login from './login';
+import Register from './register';
 
 export default class Navbar extends React.Component {
   render() {
@@ -11,9 +13,9 @@ export default class Navbar extends React.Component {
       </div>
       <div className="navbar">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Login</a></li>
-          <li><a href="#">SignUp</a></li>
+          <li><a href="index" >Home</a></li>
+          <li><a href="#loginModal" data-toggle="modal">Log in</a></li><Login />
+          <li><a href="#registerModal" data-toggle="modal">Sign Up</a></li><Register />
         </ul>
       </div>
     </div>
