@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './login';
 import Register from './register';
+import * as users from './../api/users.js';
 
 export default class Navbar extends React.Component {
   render() {
@@ -12,11 +13,16 @@ export default class Navbar extends React.Component {
         </ul>
       </div>
       <div className="navbar">
-        <ul>
-          <li><a href="index" >Home</a></li>
+        { users.checkLoggedIn()? 
+        (<ul>          
+          <li><a href="/">Home</a></li>          
+          <li><a href="#">Log Out</a></li>              
+        </ul>) :
+        (<ul>          
+          <li><a href="/">Home</a></li>
           <li><a href="#loginModal" data-toggle="modal">Log in</a></li><Login />
-          <li><a href="#registerModal" data-toggle="modal">Sign Up</a></li><Register />
-        </ul>
+          <li><a href="#registerModal" data-toggle="modal">Sign Up</a></li><Register />         
+        </ul>)}       
       </div>
     </div>
   }

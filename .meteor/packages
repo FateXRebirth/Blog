@@ -23,3 +23,5 @@ dynamic-import
 kadira:flow-router
 twbs:bootstrap
 react-meteor-data
+accounts-password
+accounts-base

@@ -193,10 +193,7 @@ body {
     display:table-cell; 
     vertical-align:middle; 
     text-align:center;
-    height: 100px;
-    width: 320px;
-    margin-right: 10px;
-    margin-left: 10px;
+    width: 20%;    
 }
 
 .info img {

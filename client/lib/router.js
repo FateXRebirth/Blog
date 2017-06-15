@@ -2,7 +2,7 @@ import React from 'react';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { mount, withOptions } from 'react-mounter';
 
-import Layout from './../components/layout.jsx';
+import Main from './../components/main.jsx';
 import Header from './../components/header.jsx';
 import Navbar from './../components/navbar.jsx';
 import Intro from './../components/intro.jsx'
@@ -29,7 +29,7 @@ FlowRouter.route('/blog/:postId', {
 FlowRouter.route('/', {
     name: 'home',
     action() {
-        mounter(Layout, {
+        mounter(Main, {
             header: <Header />,
             navbar: <Navbar />,
             intro: <Intro />,
@@ -44,7 +44,7 @@ FlowRouter.route('/', {
 FlowRouter.route('/index', {
     name: 'home',
     action() {
-        mounter(Layout, {
+        mounter(Main, {
             header: <Header />,
             navbar: <Navbar />,
             intro: <Intro />,
@@ -62,6 +62,5 @@ FlowRouter.notFound = {
 
     },
     action: function() {
-        redirect('/')
     }
 };
