@@ -1,8 +1,4 @@
-import { Meteor } from 'meteor/meteor';
-import React from 'react';
-import { render } from 'react-dom';
-import Main from './components/main.jsx';
+// Client entry point, imports all client code
 
-Meteor.startup(() => {
-  render(<Main />, document.getElementById('react-layout'));
-});
+import '/imports/startup/client';
+import '/imports/startup/both';
