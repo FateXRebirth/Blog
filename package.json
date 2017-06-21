@@ -9,6 +9,17 @@
     "meteor-node-stubs": "~0.2.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-mounter": "^1.2.0"
+    "react-mounter": "^1.2.0",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.68.5"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.2.1",
+    "autoprefixer": "^6.3.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {"browsers": ["last 2 versions"]}
+    }
   }
 }
