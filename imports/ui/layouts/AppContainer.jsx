@@ -50,6 +50,7 @@ export default class AppContainer extends React.Component {
                 <main>
                      { content }
                      <Comment />
+                     <div className="ui section divider"></div>
                      <Feature />
                 </main>
                 

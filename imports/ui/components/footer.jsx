@@ -32,10 +32,11 @@ export default class Footer extends React.Component {
                         </div>
                     </div>
                     </div>
+                    <div className="footer-copyright">
+                        © 2017 Art of Where. All rights reserved. Terms of Service | Privacy Policy
+                    </div> 
                 </div>
-                <div className="footer-copyright">
-                    © 2017 Art of Where. All rights reserved. Terms of Service | Privacy Policy
-                </div>                
+                               
             </div>
         )
     }

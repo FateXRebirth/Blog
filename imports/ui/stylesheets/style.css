@@ -86,12 +86,54 @@
 .AppContainer {
     position: relative;
     margin: 0, auto;    
-    background-color: #1B1C1D;    
+    /*background-color: #1B1C1D;    */
 }
 
 .head {
-    height: 800px;
-    background-color: lightblue;
+
+}
+
+.comments {
+    text-align: center;    
+    padding: 10px 10px 10px 10px;   
+}
+
+.comments h3 {
+    font-size: 1.5em;
+}
+
+.comments p {
+    font-size: 1em;
+}
+
+.feature {
+
+}
+
+.feature-item {
+    text-align: center;    
+}
+
+.feature-item h4 {
+    font-size: 1.5em
+}
+
+.feature-item p {
+    font-size: 1em;
+}
+
+.feature-icon {
+    
+}
+
+.feature-icon i {
+    padding-top: 30px;
+    font-size: 60px;
+    height: 120px;
+    width: 120px;
+    border: 3px solid red;
+    border-radius: 50%;
+    color: red;
 }
 
 .footer {
