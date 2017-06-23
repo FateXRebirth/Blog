@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Comment from '../components/comment';
+import Intro from '../components/intro';
 import Feature from '../components/feature';
 
 export default class AppContainer extends React.Component { 
@@ -44,17 +45,19 @@ export default class AppContainer extends React.Component {
                 <header>
                     <Header />
                 </header>
-
-                <div className="ui section divider"></div>
-                
+            
                 <main>
                      { content }
+
                      <Comment />
-                     <div className="ui section divider"></div>
+
+                     <div className="ui container section divider"></div>
+                     <Intro />
+
+                     <div className="ui container section divider"></div>
+                     
                      <Feature />
                 </main>
-                
-                <div className="ui section divider"></div>
                 
                 <footer>
                     <Footer />

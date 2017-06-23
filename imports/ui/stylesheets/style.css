@@ -82,7 +82,7 @@
     font-size: 1.5em;
     }
 }
-
+ 
 .AppContainer {
     position: relative;
     margin: 0, auto;    
@@ -91,6 +91,11 @@
 
 .head {
 
+}
+
+.comment {
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
 
 .comments {
@@ -107,7 +112,8 @@
 }
 
 .feature {
-
+    padding-top: 3em;
+    padding-bottom: 3em;
 }
 
 .feature-item {
