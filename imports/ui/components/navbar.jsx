@@ -1,9 +1,19 @@
 import React from 'react';
+import $ from 'jquery';
+
+import Login from './login';
+import Register from './register';
 
 // import element from semantic-ui-react
 //import { Header, Segment, Button, Menu } from 'semantic-ui-react';
 
 export default class Navbar extends React.Component {
+    componentDidMount() {
+        
+    }
+    componentWillUnmount() {
+        
+    }
     render() {
         return (
             <div className="ui container">
@@ -16,8 +26,8 @@ export default class Navbar extends React.Component {
                 <a className="item">Company</a>
                 <a className="item">Careers</a>
                 <div className="right item">
-                <a className="ui inverted button">Log in</a>
-                <a className="ui inverted button">Sign Up</a>
+                <a className="ui inverted button" id="login-link">Log in</a><Login />
+                <a className="ui inverted button" id="signup-link">Sign Up</a><Register />
                 </div>
             </div>
             </div>

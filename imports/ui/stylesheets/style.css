@@ -82,7 +82,20 @@
     font-size: 1.5em;
     }
 }
- 
+
+.modal.login, .modal.signup {
+    width: 550px;
+    margin: 0 0 0 -275px;
+}
+
+.modal-form {
+    margin: 50px 25px 50px 25px;
+}
+
+.modal-close {
+    float: right;
+}
+
 .AppContainer {
     position: relative;
     margin: 0, auto;    
