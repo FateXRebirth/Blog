@@ -3,6 +3,10 @@ import React from 'react';
 export default class Intro extends React.Component {
     render() {
         return (
+            <main>
+            <Comment />
+
+            <div className="ui container section divider"></div>            
             
             <div className="intro">
                 <div className="ui vertical stripe segment">
@@ -26,6 +30,11 @@ export default class Intro extends React.Component {
                 </div>
             </div>
             </div>
+
+            <div className="ui container section divider"></div>
+            
+            <Feature />
+            </main>
         )
     }
 }

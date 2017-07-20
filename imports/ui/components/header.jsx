@@ -1,15 +1,22 @@
 import React from 'react';
 
-//import { Container, Header, Button, Item } from 'semantic-ui-react';
-
 import Navbar from './navbar';
 
 export default class Header extends React.Component {
+    // constructor(props){
+    //     super(props)
+    // }
     render() {
+        if(this.props.isLoggedIn){
+            console.log("Header receive loggined");
+        } else {
+            console.log("Header does not receive loggined");
+        }
         return (
+            
             <div className="head">
             <div className="ui inverted vertical masthead center aligned segment">
-                <Navbar />         
+                         
                 <div className="ui text container">
                 <h1 className="ui inverted header">
                     Imagine-a-Company

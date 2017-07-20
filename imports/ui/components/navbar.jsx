@@ -1,36 +1,49 @@
 import React from 'react';
-import $ from 'jquery';
 
 import Login from './login';
 import Register from './register';
 
-// import element from semantic-ui-react
-//import { Header, Segment, Button, Menu } from 'semantic-ui-react';
-
 export default class Navbar extends React.Component {
-    componentDidMount() {
-        
+    constructor(props){
+        super(props)
+        this.handleCheckLogin = this.handleCheckLogin.bind(this);
     }
-    componentWillUnmount() {
-        
+
+    handleCheckLogin(value) {
+        this.props.onCheck(value);
     }
+
     render() {
+        const isLoggedIn = this.props.isLoggedIn;
+        if(isLoggedIn){
+            console.log("Navbar receive loggined");
+        } else {
+            console.log("Navbar does not receive loggined");
+        }
         return (
-            <div className="ui container">
-            <div className="ui large secondary inverted pointing menu">
-                <a className="toc item">
-                <i className="sidebar icon"></i>
-                </a>
-                <a className="active item">Home</a>
-                <a className="item">Work</a>
-                <a className="item">Company</a>
-                <a className="item">Careers</a>
-                <div className="right item">
-                <a className="ui inverted button" id="login-link">Log in</a><Login />
-                <a className="ui inverted button" id="signup-link">Sign Up</a><Register />
+            <nav style = {{backgroundColor: '#1B1C1D'}}>
+                <div className="ui container" >
+                    <div className="ui large secondary inverted pointing menu">
+                        <a className="toc item">
+                            <i className="sidebar icon"></i>
+                        </a>
+                        <a className="active item">Home</a>
+                        <a className="item">Work</a>
+                        <a className="item">Company</a>
+                        <a className="item">Careers</a>
+                        { isLoggedIn ? (
+                            <div className="right item">
+                                <a className="ui inverted button" id="logout-link" onClick={() => this.handleCheckLogin(false)}>Log Out</a>
+                            </div>
+                        ) : (
+                            <div className="right item">
+                                <a className="ui inverted button" id="login-link" href="/login" onClick={() => this.handleCheckLogin(true)}>Log In</a>
+                                <a className="ui inverted button" id="signup-link">Sign Up</a>
+                            </div>
+                        )}
+                    </div>
                 </div>
-            </div>
-            </div>
+            </nav>
         )
     }
 }
