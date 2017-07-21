@@ -1,7 +1,6 @@
 .hidden.menu {
     display: none;
 }
-
 .masthead.segment {
     min-height: 600px;
     padding: 1em 0em;
@@ -22,7 +21,6 @@
     font-size: 1.7em;
     font-weight: normal;
 }
-
 .ui.vertical.stripe {
     padding: 8em 0em;
 }
@@ -50,11 +48,9 @@
     padding-top: 5em;
     padding-bottom: 5em;
 }
-
 .footer.segment {
     padding: 5em 0em;
 }
-
 .secondary.pointing.menu .toc.item {
     display: none;
 }
@@ -82,69 +78,38 @@
     font-size: 1.5em;
     }
 }
-
-.modal.login, .modal.signup {
-    width: 550px;
-    margin: 0 0 0 -275px;
-}
-
-.modal-form {
-    margin: 50px 25px 50px 25px;
-}
-
-.modal-close {
-    float: right;
-}
-
 .AppContainer {
     position: relative;
     margin: 0, auto;    
     /*background-color: #1B1C1D;    */
 }
-
-.head {
-
-}
-
 .comment {
     padding-top: 2em;
     padding-bottom: 2em;
 }
-
 .comments {
     text-align: center;    
     padding: 10px 10px 10px 10px;   
 }
-
 .comments h3 {
     font-size: 1.5em;
 }
-
 .comments p {
     font-size: 1em;
 }
-
 .feature {
     padding-top: 3em;
     padding-bottom: 3em;
 }
-
 .feature-item {
     text-align: center;    
 }
-
 .feature-item h4 {
     font-size: 1.5em
 }
-
 .feature-item p {
     font-size: 1em;
 }
-
-.feature-icon {
-    
-}
-
 .feature-icon i {
     padding-top: 30px;
     font-size: 60px;
@@ -154,14 +119,37 @@
     border-radius: 50%;
     color: red;
 }
-
-.footer {
-
-} 
-
 .footer-copyright {
     height: 100px;
     color: white;
     text-align: center;
     line-height: 100px;
+}
+.loginPage {
+    height: 800px;
+    width: 600px;
+    margin: 0 auto;
+}
+.loginPage > .grid {
+    height: 100%;
+}
+.loginPage.image {
+    margin-top: -100px;
+}
+.loginPage.column {
+    max-width: 450px;
+}
+.registerPage {
+    height: 800px;
+    width: 600px;
+    margin: 0 auto;
+}
+.registerPage > .grid {
+    height: 100%;
+}
+.registerPage.image {
+    margin-top: -100px;
+}
+.registerPage.column {
+    max-width: 450px;
 }

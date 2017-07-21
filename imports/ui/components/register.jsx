@@ -1,15 +1,11 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { Users } from '../../api/users/users.js';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export default class Register extends React.Component {
     componentDidMount() {
-        $('#signup-link').on('click',function() {
-            $('.ui.modal.signup').modal('show');
-        })    
-        $('.modal-close').on('click', function() {
-            $('.ui.modal.signup').modal('hide');
-            $('.ui.modal.signup').form('clear');
+        $('#signup').on('click', () => {
+            $('.ui.form.signup').form('validate form');
         })    
         $('.ui.form.signup').form({
             fields: {
@@ -68,8 +64,6 @@ export default class Register extends React.Component {
             },
             onSuccess: function() {
                 let data = $('.ui.form.signup').form('get values');
-                //$('.ui.form.signup').form('add errors', [ 'email exist']);   
-                console.log(data);
                 console.log("success");
                 Meteor.call('CheckEmail', data.email, (error, result) => {
                     if(result.length != 0) {
@@ -79,31 +73,29 @@ export default class Register extends React.Component {
                     } else {
                         console.log("create...");
                         Meteor.call('CreateUser', data.username, data.email, data.password);
-                        $('.ui.modal.signup').modal('hide');
-                        $('.ui.modal.signup').form('clear');
+                        FlowRouter.go(FlowRouter.path("user", { user: data.username }))
                     }
                 })
             },
             onFailure: function() {
                 console.log("faliure");
             }
-        })       
-        $('#signup').on('click', function() {
-            $('.ui.form.signup').form('validate form');
-        })    
+        })               
     }
     
     render(){
         return(
-            <div className="ui modal signup">
-            
-                <div className="header center aligned">
-                    Sign Up
-                    <div className="modal-close button"><i className="close icon"></i></div>
-                </div>
-                
-                <div className="modal-form">
-                    <form className="ui large form signup">
+            <div className="registerPage">
+                <div className="ui middle aligned center aligned grid">
+                    <div className="column">
+                        <h2 className="ui teal image header">
+                            <img src="icons/semantic-ui-logo.png" className="image"/>
+                            <div className="content">
+                                Sign-up to your account
+                            </div>
+                        </h2>
+                        <form className="ui large form signup">
+                        <div className="ui stacked segment">
                             <div className="field">
                                 <div className="ui left icon input">
                                     <i className="user icon"></i>
@@ -129,9 +121,13 @@ export default class Register extends React.Component {
                                 </div>
                             </div>
                             <div className="ui fluid large teal button" id="signup">Sign Up</div>
+                        </div>
+
                         <div className="ui error message"></div>
-                    </form>
-                </div>                
+
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }

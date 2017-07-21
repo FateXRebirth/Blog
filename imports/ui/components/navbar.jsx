@@ -33,12 +33,12 @@ export default class Navbar extends React.Component {
                         <a className="item">Careers</a>
                         { isLoggedIn ? (
                             <div className="right item">
-                                <a className="ui inverted button" id="logout-link" onClick={() => this.handleCheckLogin(false)}>Log Out</a>
+                                <a className="ui inverted button" onClick={() => this.handleCheckLogin(false)}>Log Out</a>
                             </div>
                         ) : (
                             <div className="right item">
-                                <a className="ui inverted button" id="login-link" href="/login" onClick={() => this.handleCheckLogin(true)}>Log In</a>
-                                <a className="ui inverted button" id="signup-link">Sign Up</a>
+                                <a className="ui inverted button" href="/login">Log In</a>
+                                <a className="ui inverted button" href="/register">Sign Up</a>
                             </div>
                         )}
                     </div>

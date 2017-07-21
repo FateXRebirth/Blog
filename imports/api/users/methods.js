@@ -16,7 +16,6 @@ Meteor.methods({
         // } catch (exception) {
         //     throw new Meteor.Error('500', exception.message);
         // }
-
         return Users.insert({
             username,
             email,
@@ -40,5 +39,5 @@ Meteor.methods({
     },
     CurrentUser : function() {
         return Session.get('currentUser');
-    }
+    },
 })

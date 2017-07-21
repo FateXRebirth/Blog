@@ -11,8 +11,6 @@ import '../../ui/pages/not-found/not-found.js';
 // Import layout 
 import AppContainer from '../../ui/layouts/AppContainer.jsx';
 
-// Import component 
-import Login from '../../ui/components/login.jsx';
 // import other component
 import Navbar from '../../ui/components/navbar';
 import Header from '../../ui/components/header';
@@ -20,6 +18,9 @@ import Footer from '../../ui/components/footer';
 import Comment from '../../ui/components/comment';
 import Intro from '../../ui/components/intro';
 import Feature from '../../ui/components/feature';
+import Login from '../../ui/components/login.jsx';
+import Register from '../../ui/components/register.jsx';
+import Main from '../../ui/components/main.jsx';
 
 // Set up all routes in the app
 // FlowRouter.route('/', {
@@ -46,13 +47,41 @@ import Feature from '../../ui/components/feature';
 
 
 FlowRouter.route('/', {
-  name: 'root',
+  name: 'index',
   action() {
     mount(AppContainer, {
       content : <Intro />
     })
   }
 })
+
+FlowRouter.route('/login', {
+  name: 'login',
+  action(params, queryParams) {
+    mount(AppContainer, {
+      content : <Login />
+    })
+  }
+})
+
+FlowRouter.route('/register', {
+  action() {
+    mount(AppContainer, { 
+      content: <Register />
+    })
+  }
+});
+
+FlowRouter.route('/:user', {
+  name: 'user',
+  action(params, queryParams) {
+    mount(AppContainer, { 
+      content: <Main user={params.user}/>})
+  }
+});
+
+
+
 
 // FlowRouter.triggers.enter([cb1, cb2]);
 // FlowRouter.triggers.exit([cb1, cb2]);
@@ -103,12 +132,6 @@ FlowRouter.route('/', {
 // var path = FlowRouter.path(pathDef, params, queryParams);
 // console.log(path); // prints "/blog/met%20eor/abc?show=y%2Be%3Ds&color=black"
 
-FlowRouter.route('/login', {
-  action() {
-    mount(AppContainer, { content: <Login />})
-  }
-});
-
 FlowRouter.route('/blog/:postId', {
     action: function(params, queryParams) {
         console.log("Yeah! We are on the post:", params.postId);
@@ -138,6 +161,7 @@ FlowRouter.route('/user/:user_id', {
 // });
 
 FlowRouter.notFound = {
+    name: 'NotFound',
     // Subscriptions registered here don't have Fast Render support.
     subscriptions: function() {
 
