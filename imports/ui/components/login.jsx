@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
 import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Session } from 'meteor/session'
 
 export default class Login extends React.Component {    
     componentDidMount() {
@@ -49,11 +50,12 @@ export default class Login extends React.Component {
                         result.forEach( (element) => {
                             console.log(element);
                             if(element.password == data.password) {
-                                console.log("password correct");
+                                console.log("password correct");                                
+                                localStorage.setItem('currentUser', JSON.stringify(element.username));
                                 FlowRouter.go(FlowRouter.path("user", { user: element.username }));
                             } else {
-                                    console.log("password not correct");
-                                    $('.ui.form.login').form('add errors', [ 'password is wrong']);
+                                console.log("password not correct");
+                                $('.ui.form.login').form('add errors', [ 'password is wrong']);
                             }            
                         });
                     }

@@ -1,5 +1,6 @@
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
+import { Session } from 'meteor/session'
 import { mount } from 'react-mounter';
 import React from 'react';
 
@@ -22,29 +23,12 @@ import Login from '../../ui/components/login.jsx';
 import Register from '../../ui/components/register.jsx';
 import Main from '../../ui/components/main.jsx';
 
-// Set up all routes in the app
-// FlowRouter.route('/', {
-//   name: 'App.home',
-//   action() {
-//     BlazeLayout.render('App_body', { main: 'App_home' });
-//   },
-// });
+// FlowRouter.triggers.enter([cb1, cb2]);
+// FlowRouter.triggers.exit([cb1, cb2]);
 
-// FlowRouter.notFound = {
-//   action() {
-//     BlazeLayout.render('App_body', { main: 'App_notFound' });
-//   },
-// };
-
-// FlowRouter.route('/', {
-//   name: 'root',
-//   action() {
-//     mount(MainLayout, {
-//       content: <WelcomeComponent name="Arunoda" />
-//     });
-//   }
-// })
-
+// // filtering
+// FlowRouter.triggers.enter([trackRouteEntry], {only: ["home"]});
+// FlowRouter.triggers.exit([trackRouteExit], {except: ["home"]});
 
 FlowRouter.route('/', {
   name: 'index',
@@ -64,101 +48,42 @@ FlowRouter.route('/login', {
   }
 })
 
+FlowRouter.route('/logout', {
+  name: 'logout',
+  action() {        
+    localStorage.clear();         
+    return FlowRouter.redirect('/');
+  }
+})
+
 FlowRouter.route('/register', {
+  name: 'register',
   action() {
     mount(AppContainer, { 
       content: <Register />
     })
   }
 });
+ 
+function loginCheck(context, redirect) {    
+    if(!localStorage.getItem('currentUser')) {
+        console.log("You have to login first");
+        redirect('/login')
+    }  
+  }
 
-FlowRouter.route('/:user', {
-  name: 'user',
+let authGroup = FlowRouter.group({  
+  triggersEnter: [loginCheck]
+});
+
+authGroup.route('/:user', {
+  name: 'user', 
   action(params, queryParams) {
-    mount(AppContainer, { 
-      content: <Main user={params.user}/>})
+    mount(AppContainer, {
+        currentUser: params.user, 
+    })
   }
 });
-
-
-
-
-// FlowRouter.triggers.enter([cb1, cb2]);
-// FlowRouter.triggers.exit([cb1, cb2]);
-
-// // filtering
-// FlowRouter.triggers.enter([trackRouteEntry], {only: ["home"]});
-// FlowRouter.triggers.exit([trackRouteExit], {except: ["home"]});
-
-// FlowRouter.route('/', {
-//   triggersEnter: [function(context, redirect) {
-//     redirect('/some-other-path');
-//   }],
-//   action: function(_params) {
-//     throw new Error("this should not get called");
-//   }
-// });
-
-// route def: /apps/:appId
-// url: /apps/this-is-my-app
-
-// var appId = FlowRouter.getParam("appId");
-// console.log(appId); // prints "this-is-my-app"
-
-// route def: /apps/:appId
-// url: /apps/this-is-my-app?show=yes&color=red
-
-// var color = FlowRouter.getQueryParam("color");
-// console.log(color); // prints "red"
-
-// route def: /apps/:appId
-// url: /apps/this-is-my-app?show=yes&color=red
-
-// var current = FlowRouter.current();
-// console.log(current);
-
-// prints following object
-// {
-//     path: "/apps/this-is-my-app?show=yes&color=red",
-//     params: {appId: "this-is-my-app"},
-//     queryParams: {show: "yes", color: "red"}
-//     route: {pathDef: "/apps/:appId", name: "name-of-the-route"}
-// }
-
-// var pathDef = "/blog/:cat/:id";
-// var params = {cat: "met eor", id: "abc"};
-// var queryParams = {show: "y+e=s", color: "black"};
-
-// var path = FlowRouter.path(pathDef, params, queryParams);
-// console.log(path); // prints "/blog/met%20eor/abc?show=y%2Be%3Ds&color=black"
-
-FlowRouter.route('/blog/:postId', {
-    action: function(params, queryParams) {
-        console.log("Yeah! We are on the post:", params.postId);
-        console.log(FlowRouter.current());
-    }
-});
-
-FlowRouter.route('/user/:user_id', {
-    // do some action for this route
-    action: function(params, queryParams) {
-        console.log("Params:", params);
-        console.log("Query Params:", queryParams);
-    },
-
-    name: "<name for the route>" // optional
-});
-
-// FlowRouter.route('/home', {
-//   // calls just before the action
-//   triggersEnter: [trackRouteEntry],
-//   action: function() {
-//     // do something you like
-//   },
-//   // calls when we decide to move to another route
-//   // but calls before the next route started
-//   triggersExit: [trackRouteClose]
-// });
 
 FlowRouter.notFound = {
     name: 'NotFound',
@@ -167,6 +92,6 @@ FlowRouter.notFound = {
 
     },
     action: function() {
-      console.log("Not Found 404");
+        console.log("Not Found 404");
     }
 };

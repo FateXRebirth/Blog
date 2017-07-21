@@ -3,18 +3,16 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 
 // import other component
-import Navbar from '../components/navbar';
-import Header from '../components/header';
-import Footer from '../components/footer';
-import Comment from '../components/comment';
-import Intro from '../components/intro';
-import Feature from '../components/feature';
+import Navbar from '../../ui/components/navbar';
+import Header from '../../ui/components/header';
+import Footer from '../../ui/components/footer';
+import Main from '../../ui/components/main.jsx';
 
 export default class AppContainer extends React.Component { 
     constructor(props) {
-        console.log("constructor()")
+        // console.log("constructor()")
         super(props);
-        this.handleCheckLogin = this.handleCheckLogin.bind(this);
+        //this.handleCheckLogin = this.handleCheckLogin.bind(this);
         this.state = {
             isLoggedIn: false,
         };
@@ -48,32 +46,35 @@ export default class AppContainer extends React.Component {
         console.log("componentWillUnmount()")
     }
 
-    handleCheckLogin(value) {
-        this.setState({isLoggedIn: value});
-    }
+    // handleCheckLogin(value) {
+    //     this.setState({isLoggedIn: value});
+    // }
     
     render() {
-        const loggined = this.state.isLoggedIn;
+        let currentUser = null;
+        if(this.props.currentUser){
+            currentUser = this.props.currentUser;
+        }  
         console.log("render()")
 
-        let content = null;
-        if (loggined) {
-            console.log("App received loggined");
-            //content = <LogoutButton onClick={this.handleLogoutClick} />;
+        let main = null;
+        if (currentUser) {
+            console.log("render main...");
+            main = <Main user={currentUser} />;
         } else {
-            console.log("App does not received loggined");
-            //content = <LoginButton onClick={this.handleLoginClick} />;
+            console.log("render intro/login/register...");
+            main = this.props.content;
         }
         return (
             
             <div className="AppContainer"> 
-                <Navbar isLoggedIn={loggined} onCheck={this.handleCheckLogin} />
+                <Navbar isLoggedIn={currentUser} />
                 <header>
-                    <Header isLoggedIn={loggined}/>
+                    <Header isLoggedIn={currentUser}/>
                 </header>
             
                 <main>
-                    {this.props.content}
+                    {main}
                 </main>
                 
                 <footer>

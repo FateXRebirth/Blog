@@ -8,6 +8,7 @@ export default class Register extends React.Component {
             $('.ui.form.signup').form('validate form');
         })    
         $('.ui.form.signup').form({
+            keyboardShortcuts: false,
             fields: {
                 username: { 
                     identifier  : 'username',
@@ -73,6 +74,7 @@ export default class Register extends React.Component {
                     } else {
                         console.log("create...");
                         Meteor.call('CreateUser', data.username, data.email, data.password);
+                        localStorage.setItem('currentUser', JSON.stringify(data.username));
                         FlowRouter.go(FlowRouter.path("user", { user: data.username }))
                     }
                 })

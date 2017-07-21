@@ -1,25 +1,10 @@
 import React from 'react';
-
-import Login from './login';
-import Register from './register';
+import { Session } from 'meteor/session';
+import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export default class Navbar extends React.Component {
-    constructor(props){
-        super(props)
-        this.handleCheckLogin = this.handleCheckLogin.bind(this);
-    }
-
-    handleCheckLogin(value) {
-        this.props.onCheck(value);
-    }
-
     render() {
         const isLoggedIn = this.props.isLoggedIn;
-        if(isLoggedIn){
-            console.log("Navbar receive loggined");
-        } else {
-            console.log("Navbar does not receive loggined");
-        }
         return (
             <nav style = {{backgroundColor: '#1B1C1D'}}>
                 <div className="ui container" >
@@ -27,13 +12,13 @@ export default class Navbar extends React.Component {
                         <a className="toc item">
                             <i className="sidebar icon"></i>
                         </a>
-                        <a className="active item">Home</a>
+                        <a className="active item" href="/">Home</a>
                         <a className="item">Work</a>
                         <a className="item">Company</a>
                         <a className="item">Careers</a>
                         { isLoggedIn ? (
                             <div className="right item">
-                                <a className="ui inverted button" onClick={() => this.handleCheckLogin(false)}>Log Out</a>
+                                <a className="ui inverted button" href="/logout">Log Out</a>
                             </div>
                         ) : (
                             <div className="right item">

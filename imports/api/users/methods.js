@@ -27,17 +27,5 @@ Meteor.methods({
         check(email, String);
         
         return Users.find( { email : email } ).fetch();        
-    },
-    Login : function({data}) {
-        Session.set('currentUser', data);
-    },
-    Logout : function() {
-        delete Session.keys['currentUser'];
-    },
-    LoggingIn : function () {
-        return ( Session.get('currentUser') == null)? false : true;
-    },
-    CurrentUser : function() {
-        return Session.get('currentUser');
-    },
+    }
 })
