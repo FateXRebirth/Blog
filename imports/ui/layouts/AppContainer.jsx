@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
 
 // import other component
 import Navbar from '../../ui/components/navbar';
@@ -9,25 +8,25 @@ import Footer from '../../ui/components/footer';
 import Main from '../../ui/components/main.jsx';
 
 export default class AppContainer extends React.Component { 
-    constructor(props) {
-        // console.log("constructor()")
-        super(props);
-        //this.handleCheckLogin = this.handleCheckLogin.bind(this);
-        this.state = {
-            isLoggedIn: false,
-        };
-    }   
+    // constructor(props) {
+    //     // console.log("constructor()")
+    //     super(props);
+    //     //this.handleCheckLogin = this.handleCheckLogin.bind(this);
+    //     this.state = {
+    //         isLoggedIn: false,
+    //     };
+    // }   
 
     componentWillMount(){
-        console.log("componentWillMount()")
+        // console.log("componentWillMount()")
     }
 
     componentDidMount(){
-        console.log("componentDidMount()")
+        // console.log("componentDidMount()")
     }
 
     componentWillReceiveProps(){
-        console.log("componentWillReceiveProps()")
+        // console.log("componentWillReceiveProps()")
     }
 
     // shouldComponentUpdate(){
@@ -35,15 +34,15 @@ export default class AppContainer extends React.Component {
     // }
 
     componentWillUpdate(){
-        console.log("componentWillUpdate()")
+        // console.log("componentWillUpdate()")
     }
 
     componentDidUpdate(){
-        console.log("componentDidUpdate()")
+        // console.log("componentDidUpdate()")
     }
 
     componentWillUnmount(){
-        console.log("componentWillUnmount()")
+        // console.log("componentWillUnmount()")
     }
 
     // handleCheckLogin(value) {
@@ -52,25 +51,39 @@ export default class AppContainer extends React.Component {
     
     render() {
         let currentUser = null;
+        let loggedIn = false;
         if(this.props.currentUser){
             currentUser = this.props.currentUser;
-        }  
-        console.log("render()")
+            loggedIn = true;
+        }
+        if(localStorage.getItem('currentUser')) {
+            // currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            loggedIn = true;
+        }   
+        // console.log("render()")
 
         let main = null;
+        let service = this.props.service;
+        console.log("Service -> " + service);
+
         if (currentUser) {
-            console.log("render main...");
-            main = <Main user={currentUser} />;
+            // console.log("render main...");
+            // if(service) {
+            //     main = <Main user={currentUser} service={service} />;
+            // } else {
+            //     main = <Main user={currentUser} />;
+            // }            
+            main = <Main user={currentUser} service={service} />;
         } else {
-            console.log("render intro/login/register...");
+            // console.log("render intro/login/register...");
             main = this.props.content;
         }
         return (
             
             <div className="AppContainer"> 
-                <Navbar isLoggedIn={currentUser} />
+                <Navbar isLoggedIn={loggedIn} />
                 <header>
-                    <Header isLoggedIn={currentUser}/>
+                    <Header isLoggedIn={loggedIn}/>
                 </header>
             
                 <main>

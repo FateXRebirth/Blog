@@ -1,6 +1,4 @@
 import React from 'react';
-import { Session } from 'meteor/session';
-import { FlowRouter } from 'meteor/kadira:flow-router';
 
 export default class Navbar extends React.Component {
     render() {

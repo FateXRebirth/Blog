@@ -85,6 +85,16 @@ authGroup.route('/:user', {
   }
 });
 
+authGroup.route('/:user/:service', {
+  name: 'blog', 
+  action(params, queryParams) {
+    mount(AppContainer, {
+        currentUser: params.user, 
+        service: params.service,
+    })
+  }
+});
+
 FlowRouter.notFound = {
     name: 'NotFound',
     // Subscriptions registered here don't have Fast Render support.

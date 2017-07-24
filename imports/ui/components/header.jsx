@@ -7,6 +7,7 @@ export default class Header extends React.Component {
     //     super(props)
     // }
     render() {
+        let content = null;
         if(this.props.isLoggedIn){
             console.log("Header receive loggined");
         } else {
