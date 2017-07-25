@@ -1,7 +1,6 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
 import { FlowRouter } from 'meteor/kadira:flow-router';
-import { Session } from 'meteor/session'
 
 export default class Login extends React.Component {    
     componentDidMount() {

@@ -3,16 +3,18 @@ import React from 'react';
 import Navbar from './navbar';
 
 export default class Header extends React.Component {
-    // constructor(props){
-    //     super(props)
-    // }
+    
     render() {
-        let content = null;
-        if(this.props.isLoggedIn){
-            console.log("Header receive loggined");
-        } else {
-            console.log("Header does not receive loggined");
+        const isLoggedIn = this.props.isLoggedIn;
+        let currentUser;
+        if(this.props.currentUser || localStorage.getItem('currentUser')){
+            if(this.props.currentUser){
+                currentUser = this.props.currentUser;
+            } else {
+                currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            }
         }
+        
         return (
             
             <div className="head">

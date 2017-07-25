@@ -3,6 +3,14 @@ import React from 'react';
 export default class Navbar extends React.Component {
     render() {
         const isLoggedIn = this.props.isLoggedIn;
+        let currentUser;
+        if(this.props.currentUser || localStorage.getItem('currentUser')){
+            if(this.props.currentUser){
+                currentUser = this.props.currentUser;
+            } else {
+                currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            }
+        }
         return (
             <nav style = {{backgroundColor: '#1B1C1D'}}>
                 <div className="ui container" >
@@ -16,7 +24,8 @@ export default class Navbar extends React.Component {
                         <a className="item">Careers</a>
                         { isLoggedIn ? (
                             <div className="right item">
-                                <a className="ui inverted button" href="/logout">Log Out</a>
+                                <a className="ui inverted button" href={'/' + currentUser}>Dashboard</a>
+                                <a className="ui inverted button" href="/logout">Log Out</a>                                
                             </div>
                         ) : (
                             <div className="right item">
