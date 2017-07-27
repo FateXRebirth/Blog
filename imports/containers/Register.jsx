@@ -1,8 +1,12 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as AuthActions from '../actions/auth.js';
 
-export default class Register extends React.Component {
+class Register extends React.Component {
     componentDidMount() {
         $('#signup').on('click', () => {
             $('.ui.form.signup').form('validate form');
@@ -74,8 +78,7 @@ export default class Register extends React.Component {
                     } else {
                         console.log("create...");
                         Meteor.call('CreateUser', data.username, data.email, data.password);
-                        localStorage.setItem('currentUser', JSON.stringify(data.username));
-                        FlowRouter.go(FlowRouter.path("user", { user: data.username }))
+                        localStorage.setItem('currentUser', JSON.stringify(element.username));                         
                     }
                 })
             },
@@ -134,3 +137,21 @@ export default class Register extends React.Component {
         )
     }
 }
+
+Register.propTypes = {
+    state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    state: state
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(AuthActions, dispatch)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Register)

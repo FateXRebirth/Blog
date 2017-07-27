@@ -7,13 +7,15 @@
   "dependencies": {
     "babel-runtime": "^6.20.0",
     "faker": "^4.1.0",
+    "history": "^4.6.3",
     "meteor-node-stubs": "~0.2.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-mounter": "^1.2.0",
-    "semantic-ui-css": "^2.2.10",
-    "semantic-ui-icon": "^2.2.11",
-    "semantic-ui-react": "^0.68.5"
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.1.2",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-plugin-import": "^1.2.1",

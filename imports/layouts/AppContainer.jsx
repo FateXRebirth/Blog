@@ -1,10 +1,10 @@
 import React from 'react';
 
 // import other component
-import Navbar from '../../ui/components/navbar';
-import Header from '../../ui/components/header';
-import Footer from '../../ui/components/footer';
-import Main from '../../ui/components/main.jsx';
+import Navbar from './../containers/Navbar';
+import Header from '../../ui/components/Header';
+import Footer from '../../ui/components/Footer';
+import Main from '../../ui/components/Main.jsx';
 
 export default class AppContainer extends React.Component { 
     
@@ -21,7 +21,8 @@ export default class AppContainer extends React.Component {
             main = <Main currentUser={currentUser} service={service} />;
         } else {
             // console.log("render intro/login/register...");
-            main = this.props.content;
+            // main = this.props.content;
+            main = this.props.children;
         }
         return (
             
@@ -39,6 +40,7 @@ export default class AppContainer extends React.Component {
                     <Footer />
                 </footer>            
             </div>
+            
         );
     }
 }

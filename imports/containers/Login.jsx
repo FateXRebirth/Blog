@@ -1,9 +1,17 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { FlowRouter } from 'meteor/kadira:flow-router';
+import { Route, Link, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as AuthActions from '../actions/auth.js';
 
-export default class Login extends React.Component {    
+class Login extends React.Component { 
+    constructor(props) {
+        super(props);
+    }   
     componentDidMount() {
+        console.log(this);
         $('#login').on('click', () => {
             $('.ui.form.login').form('validate form');  
         })
@@ -51,7 +59,7 @@ export default class Login extends React.Component {
                             if(element.password == data.password) {
                                 console.log("password correct");                                
                                 localStorage.setItem('currentUser', JSON.stringify(element.username));
-                                FlowRouter.go(FlowRouter.path("user", { user: element.username }));
+                                
                             } else {
                                 console.log("password not correct");
                                 $('.ui.form.login').form('add errors', [ 'password is wrong']);
@@ -99,7 +107,7 @@ export default class Login extends React.Component {
                         </form>
 
                         <div className="ui message">
-                            New to us? <a href="/register">Sign Up</a>
+                            New to us? <Link to='/register'>Sign Up</Link>
                         </div>
                     </div>
                 </div>
@@ -107,3 +115,21 @@ export default class Login extends React.Component {
         )
     }
 }
+
+Login.propTypes = {
+    state: PropTypes.object.isRequired,
+    actions: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    state: state
+})
+
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators(AuthActions, dispatch)
+})
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Login)

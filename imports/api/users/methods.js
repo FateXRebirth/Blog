@@ -1,7 +1,6 @@
 import { check } from 'meteor/check';
 import { Meteor } from 'meteor/meteor';
 import { Users } from './users';
-import { Session } from 'meteor/session'
 
 Meteor.methods({
     CreateUser : function(username, email, password) {
