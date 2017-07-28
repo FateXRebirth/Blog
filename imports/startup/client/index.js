@@ -1,22 +1,16 @@
 // Import client startup through a single index entry point
 
-// import './router';
-// import './main.js';
-import '/imports/stylesheets/style.css';
-import App from '../../containers/App.jsx';
-
 import React from 'react'
 import ReactDOM from 'react-dom'
-
 import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
-
 import createHistory from 'history/createBrowserHistory'
-import { Route } from 'react-router'
-
+import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 
-import auth from '../../reducers/auth' // Or wherever you keep your reducers
+import '/imports/stylesheets/style.css';
+import App from '../../containers/App.jsx';
+import auth from '../../reducers/auth'; 
 
 // Create a history of your choosing (we're using a browser history in this case)
 const history = createHistory()
@@ -33,15 +27,14 @@ const store = createStore(
   }),
   applyMiddleware(middleware)
 )
-console.log(store.getState());
+
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
 ReactDOM.render(
   <Provider store={store}>
-    { /* ConnectedRouter will use the store from Provider automatically */ }
     <ConnectedRouter history={history}>
-      <App/>
+      <App />
     </ConnectedRouter>
   </Provider>,
   document.getElementById('root')

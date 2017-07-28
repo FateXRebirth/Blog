@@ -1,16 +1,31 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as AuthActions from '../actions/auth.js';
+import { user_login } from '../actions/auth.js';
 
 class Register extends React.Component {
-    componentDidMount() {
-        $('#signup').on('click', () => {
-            $('.ui.form.signup').form('validate form');
-        })    
+
+    handleRegister() {
+        let value = $('.ui.form.signup').form('validate form');
+        if(value) {
+            let data = $('.ui.form.signup').form('get values');
+            Meteor.call('CheckEmail', data.email, (error, result) => {
+                if(result.length != 0) {
+                    $('.ui.form.signup').form('add errors', [ 'email exist']);  
+                } else {
+                    Meteor.call('CreateUser', data.username, data.email, data.password);
+                    localStorage.setItem('currentUser', JSON.stringify(element.username));   
+                    this.props.history.push('/')
+                    this.props.user_login();                      
+                }
+            })
+        }
+    }
+
+    componentDidMount() { 
         $('.ui.form.signup').form({
             keyboardShortcuts: false,
             fields: {
@@ -68,22 +83,10 @@ class Register extends React.Component {
                 }
             },
             onSuccess: function() {
-                let data = $('.ui.form.signup').form('get values');
-                console.log("success");
-                Meteor.call('CheckEmail', data.email, (error, result) => {
-                    if(result.length != 0) {
-                        console.log(result);
-                        console.log("exist...");
-                        $('.ui.form.signup').form('add errors', [ 'email exist']);  
-                    } else {
-                        console.log("create...");
-                        Meteor.call('CreateUser', data.username, data.email, data.password);
-                        localStorage.setItem('currentUser', JSON.stringify(element.username));                         
-                    }
-                })
+                return true
             },
             onFailure: function() {
-                console.log("faliure");
+                return false
             }
         })               
     }
@@ -125,7 +128,7 @@ class Register extends React.Component {
                                     <input type="password" name="confirmation" placeholder="Confirmation"/>
                                 </div>
                             </div>
-                            <div className="ui fluid large teal button" id="signup">Sign Up</div>
+                            <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)}>Sign Up</div>
                         </div>
 
                         <div className="ui error message"></div>
@@ -138,20 +141,8 @@ class Register extends React.Component {
     }
 }
 
-Register.propTypes = {
-    state: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({user_login}, dispatch)
 }
 
-const mapStateToProps = state => ({
-    state: state
-})
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(AuthActions, dispatch)
-})
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Register)
+export default connect(null, mapDispatchToProps)(Register)

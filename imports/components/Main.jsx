@@ -58,16 +58,16 @@ import Blog from './Blog';
 
 class Main extends React.Component{    
     render() {
+        console.log(this.props);
         const loggingIn = this.props.loggingIn;
         const user = this.props.user;
         return (
-            <main>                
-                <Switch>                        
-                    <Route exact path='/' component={Intro} />                    
-                    <Route exact path='/login' component={Login}/>
-                    <Route exact path='/register' component={Register}/>
-                    <Route path='/:username' component={Blog} />
-                </Switch>
+            <main>
+                <Switch>                                       
+                <Route exact path='/' component={Intro} />                    
+                <Route exact path='/login' component={Login}/>
+                <Route exact path='/register' component={Register}/>
+                </Switch>  
             </main>
         )
     }

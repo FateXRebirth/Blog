@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux'
-import * as AuthActions from '../actions/auth.js';
-import { Link, Redirect } from 'react-router-dom';
+import { user_logout } from '../actions/auth.js';
 
 class Navbar extends React.Component {
+
     handleLogout() {
-        console.log(this.props);
-        const actions = this.props.actions;
-        console.log("Click");
-        actions.fake_logout();
+        this.props.user_logout()
         localStorage.clear();
-        <Redirect to='/' />
+        this.props.history.push('/');
     }
+
     render() {
-        const isLoggedIn = this.props.isLoggedIn;
-        console.log(this.props)
+        const loggingIn = this.props.loggingIn;      
         return (
             <nav style = {{backgroundColor: '#1B1C1D'}}>
                 <div className="ui container" >
@@ -25,15 +23,15 @@ class Navbar extends React.Component {
                             <i className="sidebar icon"></i>
                         </a>
                         <Link to='/' className="active item">Home</Link>
-                        { isLoggedIn ? (
+                        { loggingIn ? (
                             <div className="right item">
-                                <a className="ui inverted button" href={'/' + currentUser + '/setting'}>Setting</a>
-                                <a className="ui inverted button" href={'/' + currentUser}>Dashboard</a>
+                                <a className="ui inverted button" >Setting</a>
+                                <a className="ui inverted button" >Dashboard</a>
                                 <a className="ui inverted button" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
                             </div>
                         ) : (
                             <div className="right item">
-                                <Link to='/login' className="ui inverted button">Log In</Link>
+                                <Link to='/login' className="ui inverted button">Log In</Link> 
                                 <Link to='/register' className="ui inverted button">Sign up</Link>
                             </div>
                         )}
@@ -44,18 +42,8 @@ class Navbar extends React.Component {
     }
 }
 
-Navbar.propTypes = {
-  state: PropTypes.object.isRequired,
-  actions: PropTypes.object.isRequired
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({user_logout}, dispatch)
 }
 
-const mapStateToProps = state => ({
-  state: state
-})
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(AuthActions, dispatch)
-})
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Navbar)
+export default withRouter(connect(null, mapDispatchToProps)(Navbar))

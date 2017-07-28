@@ -1,20 +1,37 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { Route, Link, Redirect } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import * as AuthActions from '../actions/auth.js';
+import { user_login } from '../actions/auth.js';
+
 
 class Login extends React.Component { 
-    constructor(props) {
-        super(props);
+
+    handleLogin() {
+        let value = $('.ui.form.login').form('validate form');
+        if(value) {
+            let data = $('.ui.form.login').form('get values');  
+            Meteor.call('CheckEmail', data.email, (error, result) => {
+                if(result.length == 0) {
+                    $('.ui.form.login').form('add errors', [ 'email do not exist']);  
+                } else {
+                    for (var item in result) {
+                        if(result[item].password == data.password) {                                
+                            localStorage.setItem('currentUser', JSON.stringify(result[item].username));
+                            this.props.history.push('/')
+                            this.props.user_login();
+                        } else {
+                            $('.ui.form.login').form('add errors', [ 'password is wrong']);
+                        } 
+                    }
+                }
+            })
+        }       
     }   
+    
     componentDidMount() {
-        console.log(this);
-        $('#login').on('click', () => {
-            $('.ui.form.login').form('validate form');  
-        })
         $('.ui.form.login').form({
             keyboardShortcuts: false,
             fields: {
@@ -46,30 +63,10 @@ class Login extends React.Component {
                 }
             },   
             onSuccess: function() {
-                let data = $('.ui.form.login').form('get values');  
-                console.log("success");
-                Meteor.call('CheckEmail', data.email, (error, result) => {
-                    if(result.length == 0) {
-                        console.log("not exist...");
-                        $('.ui.form.login').form('add errors', [ 'email do not exist']);  
-                    } else {
-                        console.log(result);
-                        result.forEach( (element) => {
-                            console.log(element);
-                            if(element.password == data.password) {
-                                console.log("password correct");                                
-                                localStorage.setItem('currentUser', JSON.stringify(element.username));
-                                
-                            } else {
-                                console.log("password not correct");
-                                $('.ui.form.login').form('add errors', [ 'password is wrong']);
-                            }            
-                        });
-                    }
-                })
+                return true
             },
             onFailure: function() {
-                console.log("faliure");
+                return false
             }
         })
     }
@@ -99,7 +96,7 @@ class Login extends React.Component {
                                     <input type="password" name="password" placeholder="Password"/>
                                 </div>
                             </div>
-                            <div className="ui fluid large teal button" id="login">Login</div>
+                            <div className="ui fluid large teal button" onClick={this.handleLogin.bind(this)}>Login</div>
                         </div>
 
                         <div className="ui error message"></div>
@@ -116,20 +113,8 @@ class Login extends React.Component {
     }
 }
 
-Login.propTypes = {
-    state: PropTypes.object.isRequired,
-    actions: PropTypes.object.isRequired
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({user_login}, dispatch)
 }
 
-const mapStateToProps = state => ({
-    state: state
-})
-
-const mapDispatchToProps = dispatch => ({
-    actions: bindActionCreators(AuthActions, dispatch)
-})
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Login)
+export default withRouter(connect(null, mapDispatchToProps)(Login))
