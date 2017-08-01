@@ -25,8 +25,8 @@ class Navbar extends React.Component {
                         <Link to='/' className="active item">Home</Link>
                         { loggingIn ? (
                             <div className="right item">
-                                <a className="ui inverted button" >Setting</a>
-                                {/* <a className="ui inverted button" >Dashboard</a> */}
+                                <Link to='/setting' className="ui inverted button">Setting</Link>
+                                <Link to='/blog' className="ui inverted button">Blog</Link>
                                 <Link to='/dashboard' className="ui inverted button">Dashboard</Link> 
                                 <a className="ui inverted button" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
                             </div>

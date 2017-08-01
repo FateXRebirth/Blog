@@ -11,6 +11,8 @@ import Register from '../containers/Register';
 import Footer from '../components/Footer';
 import NotFound from '../components/NotFound';
 
+import Blog from '../components/Blog'
+
 class App extends React.Component {
     
     render () {
@@ -38,9 +40,16 @@ class App extends React.Component {
                     <Route exact path='/' component={Intro} />            
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} /> 
-                     <Route path='/dashboard' render={ () => (
+                    <Route path='/dashboard' render={ () => (
                         loggingIn ? (
                             <Main />
+                        ) : (
+                            <Redirect to='/login' />
+                        )
+                    )} /> 
+                    <Route path='/blog' render={ () => (
+                        loggingIn ? (
+                            <Blog />
                         ) : (
                             <Redirect to='/login' />
                         )
