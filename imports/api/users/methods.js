@@ -28,8 +28,7 @@ Meteor.methods({
         return Users.find( { email : email } ).fetch();        
     },
     GetUser : function(username) {
-        check(username, String);
-
+        
         return Users.find( { username : username } ).fetch();
     }
 })

@@ -16,8 +16,8 @@ class Navbar extends React.Component {
     render() {
         const loggingIn = this.props.loggingIn;      
         return (
-            <nav style = {{backgroundColor: '#1B1C1D'}}>
-                <div className="ui container" >
+            <nav>
+                {/* <div className="ui container" >
                     <div className="ui large secondary inverted pointing menu">
                         <a className="toc item">
                             <i className="sidebar icon"></i>
@@ -37,7 +37,7 @@ class Navbar extends React.Component {
                             </div>
                         )}
                     </div>
-                </div>
+                </div> */}
             </nav>
         )
     }

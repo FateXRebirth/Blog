@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { user_login } from '../actions/auth.js';
+import { user_login, user_data } from '../actions/auth.js';
 
 
 class Login extends React.Component { 
@@ -20,8 +20,10 @@ class Login extends React.Component {
                     for (var item in result) {
                         if(result[item].password == data.password) {                                
                             localStorage.setItem('currentUser', JSON.stringify(result[item].username));
-                            this.props.history.push('/')
                             this.props.user_login();
+                            this.props.user_data(result[item].username)
+                            this.props.history.push('/blog')
+                            break;
                         } else {
                             $('.ui.form.login').form('add errors', [ 'password is wrong']);
                         } 
@@ -114,7 +116,7 @@ class Login extends React.Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_login}, dispatch)
+    return bindActionCreators({user_login, user_data}, dispatch)
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(Login))

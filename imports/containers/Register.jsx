@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { user_login } from '../actions/auth.js';
+import { user_login, user_data } from '../actions/auth.js';
 
 class Register extends React.Component {
 
@@ -17,9 +17,10 @@ class Register extends React.Component {
                     $('.ui.form.signup').form('add errors', [ 'email exist']);  
                 } else {
                     Meteor.call('CreateUser', data.username, data.email, data.password);
-                    localStorage.setItem('currentUser', JSON.stringify(element.username));   
-                    this.props.history.push('/')
-                    this.props.user_login();                      
+                    localStorage.setItem('currentUser', JSON.stringify(data.username));   
+                    this.props.user_login();
+                    this.props.user_data(data.username);
+                    this.props.history.push('/blog')                      
                 }
             })
         }
@@ -142,7 +143,7 @@ class Register extends React.Component {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_login}, dispatch)
+    return bindActionCreators({user_login, user_data}, dispatch)
 }
 
 export default connect(null, mapDispatchToProps)(Register)
