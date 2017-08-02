@@ -26,8 +26,8 @@ export default class Header extends React.Component {
         const loggingIn = this.props.loggingIn;     
         const user = this.state.user;
         return (
-            <header>
-                             
+            <header className="header">
+
             </header> 
         )
     }

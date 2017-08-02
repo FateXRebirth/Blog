@@ -8,7 +8,7 @@ import createHistory from 'history/createBrowserHistory'
 import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 
-import '/imports/stylesheets/style.css';
+// import '/imports/stylesheets/style.css';
 
 import App from '../../containers/App.jsx';
 import auth from '../../reducers/auth'; 

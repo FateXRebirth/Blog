@@ -78,12 +78,14 @@ class Login extends React.Component {
             <div className="loginPage">
                 <div className="ui middle aligned center aligned grid">
                     <div className="column">
-                        <h2 className="ui teal image header">
-                            <img src="icons/semantic-ui-logo.png" className="image"/>
-                            <div className="content">
-                                Log-in to your account
-                            </div>
-                        </h2>
+                        <div className="title">
+                            <h2 className="ui teal image header">
+                                <img src="icons/semantic-ui-logo.png" className="image"/>
+                                <div className="content">
+                                    Log-in to your account
+                                </div>
+                            </h2>
+                        </div>
                         <form className="ui large form login">
                         <div className="ui stacked segment">
                             <div className="field">

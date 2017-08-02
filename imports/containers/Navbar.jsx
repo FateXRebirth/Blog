@@ -16,7 +16,41 @@ class Navbar extends React.Component {
     render() {
         const loggingIn = this.props.loggingIn;      
         return (
-            <nav>
+            <nav className="navbar">
+                <div className="ui container secondary  menu">
+                    <div className="left menu">
+                        <Link to='/'><img className="ui circular image" src="/icons/semantic-ui-logo.png"/></Link>
+                        <p className="item"> Growing with the Web </p>
+                    </div>
+                    {/* <a className="item">
+                        Home
+                    </a>
+                    <a className="item">
+                        Messages
+                    </a>
+                    <a className="item">
+                        Friends
+                    </a> */}
+                    <div className="right menu">
+                        <div className="item">
+                            <div className="ui icon input">
+                                <input type="text" placeholder="Search..."/>
+                                <i className="search link icon"></i>
+                            </div>
+                        </div>
+                        { loggingIn ? (
+                            <div className="right item">
+                                <Link to='/setting' className="ui item">Setting</Link>
+                                <a className="ui item" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
+                            </div>
+                        ) : (
+                            <div className="right item">
+                                <Link to='/login' className="ui item">Log In</Link> 
+                                <Link to='/register' className="ui item">Sign up</Link>
+                            </div>
+                        )}
+                    </div>
+                </div>
                 {/* <div className="ui container" >
                     <div className="ui large secondary inverted pointing menu">
                         <a className="toc item">

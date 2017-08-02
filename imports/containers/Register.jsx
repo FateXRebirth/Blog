@@ -97,12 +97,14 @@ class Register extends React.Component {
             <div className="registerPage">
                 <div className="ui middle aligned center aligned grid">
                     <div className="column">
-                        <h2 className="ui teal image header">
-                            <img src="icons/semantic-ui-logo.png" className="image"/>
-                            <div className="content">
-                                Sign-up to your account
-                            </div>
-                        </h2>
+                        <div className="title">
+                            <h2 className="ui teal image header">
+                                <img src="icons/semantic-ui-logo.png" className="image"/>
+                                <div className="content">
+                                    Sign-up to your account
+                                </div>
+                            </h2>
+                        </div>
                         <form className="ui large form signup">
                         <div className="ui stacked segment">
                             <div className="field">
