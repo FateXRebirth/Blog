@@ -33,7 +33,7 @@ class App extends React.Component {
         // )
 
         return (
-            <div>      
+            <div className="App">      
                 <Navbar loggingIn={loggingIn} user={user} />        
                 <Header loggingIn={loggingIn} user={user} />  
                 <Switch>
