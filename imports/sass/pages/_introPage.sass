@@ -22,7 +22,6 @@
         display: flex;
         justify-content: center; /* align horizontal */
         align-items: center; /* align vertical */
-        padding: 30px 30px 30px 30px;
         .image {
             
             float: right;
@@ -32,8 +31,9 @@
             }
         }
         .content {
-            padding-right: 20px;
             float: left;
+            padding-left: 50px;
+            padding-right: 20px;
             width: 50%;
             .title {
                 color: rgb(31.2%, 81.4%, 96.4%);
@@ -51,17 +51,25 @@
 
     .section-3 {
         .item {
-
             width: 50%;
             display: inline-flex;
-            justify-content: center; /* align horizontal */
-            align-items: center; /* align vertical */
-            img {
-                transform: scale(0.5, 0.5);
-            }
-            p {
-                font-size: 1.5rem;
+            // img {
+            //     transform: scale(0.5, 0.5);
+            // }
+            // p {
+            //     font-size: 1.5rem;
                 
+            // }
+            img {
+                display:inline-block;
+                transform: scale(0.5, 0.5);
+                vertical-align: middle;
+            }
+            h2 {
+                padding-top: 20px;
+                display:inline-block;
+                font-size: 1.5rem;
+                vertical-align: middle;
             }
         }
     }
@@ -69,13 +77,11 @@
     .section-4 {
         background-color: rgb(89.5%, 90.9%, 91.3%);
         min-height: 200px;
-        display: flex;
-        justify-content: center; /* align horizontal */
-        align-items: center; /* align vertical */
-        .title {
+        padding-top: 50px;
+        .title {            
+            text-align: center;
             float: left;
             width: 50%;
-            text-align: center;
             h1  {
                 font-size: 2.5rem;
             }
@@ -84,7 +90,8 @@
             }
         }
         .link {
-            text-align: center;
+            text-align-last: center;
+            float: right;
             width: 50%;
             a {                
                 font-size: 2rem;

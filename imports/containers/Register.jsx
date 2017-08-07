@@ -95,49 +95,45 @@ class Register extends React.Component {
     render(){
         return(
             <div className="registerPage">
-                <div className="ui middle aligned center aligned grid">
-                    <div className="column">
-                        <div className="title">
-                            <h2 className="ui teal image header">
-                                <img src="icons/semantic-ui-logo.png" className="image"/>
-                                <div className="content">
-                                    Sign-up to your account
-                                </div>
+                <div className="ui container center aligned range">
+                    <div className="title">
+                        <img src="icons/semantic-ui-logo.png"/>
+                            <h2 className="content">
+                                Sign-up to your account
                             </h2>
+                    </div>    
+                    <form className="ui large form signup">
+                    <div className="ui stacked segment">
+                        <div className="field">
+                            <div className="ui left icon input">
+                                <i className="user icon"></i>
+                                <input type="text" name="username" placeholder="Username"/>
+                            </div>
                         </div>
-                        <form className="ui large form signup">
-                        <div className="ui stacked segment">
-                            <div className="field">
-                                <div className="ui left icon input">
-                                    <i className="user icon"></i>
-                                    <input type="text" name="username" placeholder="Username"/>
-                                </div>
+                        <div className="field">
+                            <div className="ui left icon input">
+                                <i className="mail icon"></i>
+                                <input type="text" name="email" placeholder="Email Address"/>
                             </div>
-                            <div className="field">
-                                <div className="ui left icon input">
-                                    <i className="mail icon"></i>
-                                    <input type="text" name="email" placeholder="Email Address"/>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <div className="ui left icon input">
-                                    <i className="lock icon"></i>
-                                    <input type="password" name="password" id="password" placeholder="Password"/>
-                                </div>
-                            </div>
-                            <div className="field">
-                                <div className="ui left icon input">
-                                    <i className="check circle icon"></i>
-                                    <input type="password" name="confirmation" placeholder="Confirmation"/>
-                                </div>
-                            </div>
-                            <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)}>Sign Up</div>
                         </div>
-
-                        <div className="ui error message"></div>
-
-                        </form>
+                        <div className="field">
+                            <div className="ui left icon input">
+                                <i className="lock icon"></i>
+                                <input type="password" name="password" id="password" placeholder="Password"/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <div className="ui left icon input">
+                                <i className="check circle icon"></i>
+                                <input type="password" name="confirmation" placeholder="Confirmation"/>
+                            </div>
+                        </div>
+                        <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)}>Sign Up</div>
                     </div>
+
+                    <div className="ui error message"></div>
+
+                    </form>                
                 </div>
             </div>
         )

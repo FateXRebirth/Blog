@@ -76,17 +76,14 @@ class Login extends React.Component {
     render(){
         return(
             <div className="loginPage">
-                <div className="ui middle aligned center aligned grid">
-                    <div className="column">
-                        <div className="title">
-                            <h2 className="ui teal image header">
-                                <img src="icons/semantic-ui-logo.png" className="image"/>
-                                <div className="content">
-                                    Log-in to your account
-                                </div>
+                <div className="ui container center aligned range">
+                    <div className="title">
+                        <img src="icons/semantic-ui-logo.png"/>
+                            <h2 className="content">
+                                Log-in to your account
                             </h2>
-                        </div>
-                        <form className="ui large form login">
+                    </div>
+                    <form className="ui large form login">
                         <div className="ui stacked segment">
                             <div className="field">
                                 <div className="ui left icon input">
@@ -105,11 +102,10 @@ class Login extends React.Component {
 
                         <div className="ui error message"></div>
 
-                        </form>
+                    </form>
 
-                        <div className="ui message">
-                            New to us? <Link to='/register'>Sign Up</Link>
-                        </div>
+                    <div className="ui message">
+                        New to us? <Link to='/register'>Sign Up</Link>
                     </div>
                 </div>
             </div>
