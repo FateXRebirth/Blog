@@ -1,7 +1,20 @@
 import { Meteor } from 'meteor/meteor';
-import { assert } from 'meteor/practicalmeteor:chai';
+import { assert, should, expect, be } from 'meteor/practicalmeteor:chai';
+import { describe, it, before } from 'meteor/practicalmeteor:mocha';
 import { Users } from './users.js';
 import './methods.js';
+
+// function wrap(done, cb) {
+//    return (...args) => {
+//       try { return cb(...args); } catch (e) { done(e); }
+//    }
+// }
+
+// it('Should return else', () => {
+//   Meteor.call('somthing.else', 'else', wrap(done, (err, res) => {
+//     chai.assert.equal(res, 'somthingelse', 'should be else');
+//   }));
+// });
 
 if (Meteor.isServer) {
   describe('users methods', function () {
@@ -14,10 +27,26 @@ if (Meteor.isServer) {
 
     describe('can find User data', function () {
         it('with exist User', (done) => {
-           
+            Meteor.call('GetUser', 'test1', (error, result) => {
+                try {
+                    expect(result.length).to.equal(1);
+                    done();
+                } catch (error) { done(error); }
+            });
         });
         it('with does not exist User', () => {
-
+            const promise = new Promise((resolve, reject) => {
+                Meteor.call('GetUser', 'test2', (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            return promise.then( function(result) {
+                expect(result.length).to.equal(0);
+            });
         });
     });
 

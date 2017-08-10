@@ -2,10 +2,15 @@
   "name": "Blog",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "mocha-watch": "chimp --ddp=http://localhost:3000 --watch --mocha --path=imports/tests",
+    "mocha-test": "chimp --mocha --path=imports/tests",
+    "cucumber-watch": "chimp --ddp=http://localhost:3000 --watch --path=imports/tests",
+    "cucumber-test": "chimp --path=imports/tests"
   },
   "dependencies": {
     "babel-runtime": "^6.25.0",
+    "chimp": "^0.49.1",
     "faker": "^4.1.0",
     "history": "^4.6.3",
     "meteor-node-stubs": "~0.2.4",
@@ -20,7 +25,8 @@
   },
   "devDependencies": {
     "autoprefixer": "^6.7.7",
-    "babel-plugin-import": "^1.2.1"
+    "babel-plugin-import": "^1.2.1",
+    "gulp-chimp": "^2.2.1"
   },
   "postcss": {
     "plugins": {
