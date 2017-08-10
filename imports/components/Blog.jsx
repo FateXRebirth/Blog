@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Blog extends React.Component {
     constructor() {
@@ -56,22 +57,35 @@ export default class Blog extends React.Component {
     
     render() {
         return (
-            <div className="ui container">
+            <div className="blogPage">
+                
                 {this.state.posts.map(function(post) {
                     return (
-                        <div key={post.id} className="ui raised segment">
-                            <div className="post-author">
-                                <h3> { post.author } </h3>
+                        <article key={post.id} className="">
+                            <div className="title">
+                                <header className="ui container">
+                                    <Link to={`/blog/${post.id}`} className="link"> { post.title } </Link>
+                                    <div className="date"> 2017/08/10 </div>
+                                    <p> Algorithm C# Computer science Java JavaScript Open source Python Ruby Sorting </p>
+                                </header>
                             </div>
-                            <div className="post-title">
-                                <h6> { post.title } </h6>
+                            <div className="content">
+                                <div className="ui container">
+                                    <div className="text">
+                                        <p> { post.content } </p>
+                                        <Link to='/blog/'> Continue reading </Link>
+                                    </div>
+                                    <div className="image">
+                                        <figure>
+                                            <img className="ui circular image" src="/icons/semantic-ui-logo.png"/>
+                                        </figure>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="post-contnet">
-                                <p> { post.content } </p>
-                            </div>
-                        </div>
+                        </article>
                     );
                 })}
+                
             </div>
         )
     }

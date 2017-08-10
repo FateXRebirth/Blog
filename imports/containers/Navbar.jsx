@@ -18,19 +18,16 @@ class Navbar extends React.Component {
         return (
             <nav className="navbar">
                 <div className="ui container secondary  menu">
-                    <div className="left menu">
+                    { loggingIn ? (
+                        <div className="left menu">
+                        <Link to='/blog'><img className="ui circular image" src="/icons/semantic-ui-logo.png"/></Link>
+                        <p className="item"> Growing with the Web </p>
+                    </div>) : (
+                        <div className="left menu">
                         <Link to='/'><img className="ui circular image" src="/icons/semantic-ui-logo.png"/></Link>
                         <p className="item"> Growing with the Web </p>
-                    </div>
-                    {/* <a className="item">
-                        Home
-                    </a>
-                    <a className="item">
-                        Messages
-                    </a>
-                    <a className="item">
-                        Friends
-                    </a> */}
+                    </div>)
+                    }
                     <div className="right menu">
                         <div className="item">
                             <div className="ui icon input">
@@ -40,7 +37,7 @@ class Navbar extends React.Component {
                         </div>
                         { loggingIn ? (
                             <div className="right item">
-                                <Link to='/setting' className="ui item">Setting</Link>
+                                <Link to='/dashboard' className="ui item">Dashboard</Link>
                                 <a className="ui item" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
                             </div>
                         ) : (

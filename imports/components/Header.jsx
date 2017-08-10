@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
     
@@ -35,7 +36,7 @@ export default class Header extends React.Component {
                 (<div className="ui container">
                     <p className="title">Create a unique blog</p>
                     <p className="content">Start publishing in seconds. Instantly create the personal or professional blog of your dreams to share your ideas on the web.</p>
-                    <button className="ui positive button">Get Started</button>
+                    <Link to='/register' className="ui positive button">Get Started</Link>
                 </div>) 
                 }                
             </header> 

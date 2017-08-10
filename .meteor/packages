@@ -24,3 +24,6 @@ juliancwirko:postcss
 jquery@1.11.10
 static-html
 fourseven:scss
+practicalmeteor:chai
+dburles:factory
+peerlibrary:async

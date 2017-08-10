@@ -5,7 +5,7 @@ import { withRouter, Redirect, Switch, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import Header from '../components/Header';
 import Intro from '../components/Intro';
-import Main from '../components/Main';
+import Dashboard from '../components/Dashboard';
 import Login from '../containers/Login';
 import Register from '../containers/Register';
 import Footer from '../components/Footer';
@@ -16,9 +16,16 @@ import Blog from '../components/Blog'
 class App extends React.Component {
     
     render () {
-        console.log(this.props)
-        const loggingIn = this.props.auth.loggingIn;
-        const user = this.props.auth.user;
+        console.log(this.props);
+        let loggingIn = null;
+        let user = null;
+        if(localStorage.getItem('currentUser')) {
+            loggingIn = true;
+            user = JSON.parse(localStorage.getItem('currentUser'));
+        } else {
+            loggingIn = this.props.auth.loggingIn;
+            user = this.props.auth.user;
+        }
 
         // const PrivateRoute = ({ component: Component }) => (
         //     <Route render={() => (
@@ -42,7 +49,7 @@ class App extends React.Component {
                     <Route path='/register' component={Register} /> 
                     <Route path='/dashboard' render={ () => (
                         loggingIn ? (
-                            <Main />
+                            <Dashboard />
                         ) : (
                             <Redirect to='/login' />
                         )
