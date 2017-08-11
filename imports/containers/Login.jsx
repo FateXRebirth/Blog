@@ -14,20 +14,18 @@ class Login extends React.Component {
         if(value) {
             let data = $('.ui.form.login').form('get values');  
             Meteor.call('CheckEmail', data.email, (error, result) => {
-                if(result.length == 0) {
-                    $('.ui.form.login').form('add errors', [ 'email do not exist']);  
-                } else {
-                    for (var item in result) {
-                        if(result[item].password == data.password) {                                
-                            localStorage.setItem('currentUser', JSON.stringify(result[item].username));
+                if(result) {
+                    if(result.password == data.password) {                                
+                            localStorage.setItem('currentUser', JSON.stringify(result.username));
                             this.props.user_login();
-                            this.props.user_data(result[item].username)
+                            this.props.user_data(result.username)
                             this.props.history.push('/blog')
                             break;
-                        } else {
-                            $('.ui.form.login').form('add errors', [ 'password is wrong']);
-                        } 
-                    }
+                    } else {
+                        $('.ui.form.login').form('add errors', [ 'password is wrong']);
+                    }     
+                } else {
+                    $('.ui.form.login').form('add errors', [ 'email do not exist']);  
                 }
             })
         }       

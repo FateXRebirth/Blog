@@ -13,7 +13,7 @@ class Register extends React.Component {
         if(value) {
             let data = $('.ui.form.signup').form('get values');
             Meteor.call('CheckEmail', data.email, (error, result) => {
-                if(result.length != 0) {
+                if(result) {
                     $('.ui.form.signup').form('add errors', [ 'email exist']);  
                 } else {
                     Meteor.call('CreateUser', data.username, data.email, data.password);
