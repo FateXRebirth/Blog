@@ -3,20 +3,19 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter, Redirect, Switch, Route } from 'react-router-dom';
 import Navbar from './Navbar';
-import Header from '../components/Header';
-import Intro from '../components/Intro';
-import Dashboard from '../components/Dashboard';
-import Login from '../containers/Login';
-import Register from '../containers/Register';
-import Footer from '../components/Footer';
-import NotFound from '../components/NotFound';
-
-import Blog from '../components/Blog'
+import Header from './Header';
+import Intro from './Intro';
+import Dashboard from './Dashboard';
+import Login from './Login';
+import Register from './Register';
+import Footer from './Footer';
+import NotFound from './NotFound';
+import Blog from './Blog'
 
 class App extends React.Component {
     
     render () {
-        console.log(this.props);
+        // console.log(this.props);
         let loggingIn = null;
         let user = null;
         if(localStorage.getItem('currentUser')) {
@@ -27,18 +26,6 @@ class App extends React.Component {
             user = this.props.auth.user;
         }
 
-        // const PrivateRoute = ({ component: Component }) => (
-        //     <Route render={() => (
-        //     loggingIn ? (
-        //         <Component />
-        //     ) : (
-        //         <Redirect to={{
-        //         pathname: '/login'
-        //         }}/>
-        //     )
-        //     )}/>
-        // )
-
         return (
             <div className="App">      
                 <Navbar loggingIn={loggingIn} user={user} />        
@@ -47,13 +34,6 @@ class App extends React.Component {
                     <Route exact path='/' component={Intro} />            
                     <Route path='/login' component={Login} />
                     <Route path='/register' component={Register} /> 
-                    <Route path='/dashboard' render={ () => (
-                        loggingIn ? (
-                            <Dashboard />
-                        ) : (
-                            <Redirect to='/login' />
-                        )
-                    )} /> 
                     <Route path='/blog' render={ () => (
                         loggingIn ? (
                             <Blog />
@@ -61,7 +41,13 @@ class App extends React.Component {
                             <Redirect to='/login' />
                         )
                     )} /> 
-                    {/* <PrivateRoute path='/dashboard' component={Main} /> */}
+                    <Route path='/dashboard' render={ () => (
+                        loggingIn ? (
+                            <Dashboard />
+                        ) : (
+                            <Redirect to='/login' />
+                        )
+                    )} /> 
                     <Route path='/notFound' component={NotFound} />
                     <Redirect to='/notFound' />      
                 </Switch>

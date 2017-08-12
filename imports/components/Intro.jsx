@@ -1,9 +1,5 @@
 import React from 'react';
 
-// import other component
-import Comment from './Comment';
-import Feature from './Feature';
-
 export default class Intro extends React.Component {
     render() {
         return (            

@@ -17,7 +17,7 @@ export default class Header extends React.Component {
                 if(result) {                    
                     this.setState({ user: result[0] });
                 } else {
-                    console.log(error);
+                    // console.log(error);
                 }
             })
         }        

@@ -7,22 +7,28 @@ Meteor.methods({
         check(username, String);
         check(title, String);
         check(content, String);
-        Posts.insert({
-            username,
-            title,
-            content,
-            createAt: new Date()
-        }, (error, result) => {
-            return Posts.update({ username: username, title: title}, {$set: { _id: result }});
-        })
+        var id = Posts.insert({ username: username, title: title, content: content, createAt: new Date()});
+        try {
+            return Posts.update( { username: username, title: title }, { $set: { id: id }});
+        } catch (e) {
+            throw new Meteor.Error('Can not update');
+        }
     },
     EditPost : function(id, data) {
-        return Posts.update( { _id: id }, {$set: {title: data.title, content: data.content }});
+        check(id, String);
+        check(data, Object);
+        try {
+            return Posts.update({ id: id }, { $set: { title:data.title, content: data.content } });
+        } catch(e) {
+            throw new Meteor.Error('Can not edit');
+        }
     },
     DeletePost : function(id) {
-        Posts.remove( { _id: id } ,(error, result) => {
-            if(error) return error;
-            return result;
-        }); 
+        check(id, String);
+        try {
+            return Posts.remove({ id: id } );
+        } catch(e) {
+            throw new Meteor.Error('Can not delete');
+        }
     }
 })

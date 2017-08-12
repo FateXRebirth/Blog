@@ -10,7 +10,7 @@ import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-ro
 
 // import '/imports/stylesheets/style.css';
 
-import App from '../../containers/App.jsx';
+import App from '../../components/App.jsx';
 import auth from '../../reducers/auth'; 
 
 // Create a history of your choosing (we're using a browser history in this case)

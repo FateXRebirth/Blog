@@ -20,7 +20,6 @@ class Login extends React.Component {
                             this.props.user_login();
                             this.props.user_data(result.username)
                             this.props.history.push('/blog')
-                            break;
                     } else {
                         $('.ui.form.login').form('add errors', [ 'password is wrong']);
                     }     

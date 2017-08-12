@@ -21,21 +21,28 @@ if (Meteor.isServer) {
         });
         
         it('can edit user data with exist user', () => {
-            // get id
-            var id = Users.findOne({ username: 'admin'})._id;
-            Meteor.call('EditUser', id, {username: 'admin2', email: 'admin2@admin.com', password: '1234567'});
-            expect(Users.findOne({ _id: id }).username).to.equal('admin2');
-            expect(Users.findOne({ _id: id }).email).to.equal('admin2@admin.com');
-            expect(Users.findOne({ _id: id }).password).to.equal('1234567');        
+            var id = Users.findOne({ username: 'admin'}).id;
+            expect(Meteor.call('EditUser', id, {username: 'admin2', password: '1234567'})).to.equal(1);
+            expect(Users.findOne({ id: id }).username).to.equal('admin2');
+            expect(Users.findOne({ id: id }).password).to.equal('1234567');        
         });
 
         it('can not edit user data with does not exist user', () => {
-            Meteor.call('EditUser', 'fake_id', {username: 'admin2', password: '1234567'}, (error, result) => {
-                expect(error).to.throw();
-            });        
+            const promise = new Promise((resolve, reject) => {
+                Meteor.call('EditUser', "fake_id", { username: 'admin2', password: '1234567'}, (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            return promise.then( function(result) {
+                assert.equal(result, 0);
+            });            
         });
-        
-        it('can check exist email with exist user', (done) => {
+
+        it('can check exist email with exist user', () => {
             Meteor.call('CheckEmail', 'admin@admin.com', (error, result) => {
                 try {
                     expect(result.username).to.equal('admin');
@@ -48,7 +55,7 @@ if (Meteor.isServer) {
         it('can not check exist email with does not exist user', () => {
             Meteor.call('CheckEmail', 'admin1@admin.com', (error, result) => {
                 try {
-                    assert.equal(result, undefined);
+                    expect(result).to.be.undefined;
                     done();
                 } catch (error) { done(error) }
             })

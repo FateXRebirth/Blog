@@ -23,28 +23,48 @@ if (Meteor.isServer) {
         })
             
         it('can edit post with exist post', () => {
-            var id = Posts.findOne({title: 'title'})._id;
+            var id = Posts.findOne({title: 'title'}).id;
             Meteor.call('EditPost', id, { title: 'title2', content: 'content2'})
-            expect(Posts.findOne({ _id: id }).title).to.equal('title2');
-            expect(Posts.findOne({ _id: id }).content).to.equal('content2');
+            var result = Posts.findOne({ id: id });
+            expect(result.title).to.equal('title2');
+            expect(result.content).to.equal('content2');
         })
 
-        it('can not edit post with does not exist post', () => {
-            Meteor.call('EditPost', "fake_id", { title: 'title2', content: 'content2'}, (error, result) => {
-                expect(error).to.throw();
-            })
+        it('can not edit post with does not exist post', () => {        
+            const promise = new Promise((resolve, reject) => {
+                Meteor.call('EditPost', "fake_id", { title: 'title2', content: 'content2'}, (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            return promise.then( function(result) {
+                assert.equal(result, 0);
+            });            
         })        
             
         it('can delete post with exist post', () => {
-            var id = Posts.findOne({title: 'title'})._id;
-            Meteor.call('DeletePost', id, );
-            expect(Posts.findOne( { _id: id })).to.not.exist;            
+            var id = Posts.findOne({title: 'title'}).id;
+            expect(Meteor.call('DeletePost', id)).to.equal(1);
+            expect(Posts.findOne( { id: id })).to.be.undefined;;            
         })
 
         it('can not delete post with does not exist post', () => {
-            Meteor.call('EditPost', "fake_id", (error, result) => {
-                expect(error).to.throw();
-            })
+            expect(Meteor.call('DeletePost', "fake_id")).to.equal(0);
+            const promise = new Promise((resolve, reject) => {
+                Meteor.call('DeletePost', "fake_id", (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            return promise.then( function(result) {
+                assert.equal(result, 0);
+            });
         })
     })
 }
