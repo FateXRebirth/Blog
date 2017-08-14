@@ -27,7 +27,7 @@ export default class Header extends React.Component {
         const loggingIn = this.props.loggingIn;     
         const user = this.state.user;
         return (
-            <header className="header">
+            <header id="header">
                 { loggingIn ? 
                 (<div className="ui container">
                     <p className="title">Welcome!</p>
