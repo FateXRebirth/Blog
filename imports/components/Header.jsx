@@ -3,29 +3,22 @@ import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: null
-        }
-    }
-    
     componentWillReceiveProps(nextProps) {
         if(this.props != nextProps) {
-            let user = this.props.user;
-            Meteor.call('GetUser', user, (error, result) => {
-                if(result) {                    
-                    this.setState({ user: result[0] });
-                } else {
-                    // console.log(error);
-                }
-            })
+            // if( this.props.user) {
+            //     Meteor.call('GetUser', this.props.user, (error, result) => {
+            //         if(result) {    
+            //             console.log(result);                
+            //         } else {
+            //             console.log(error);
+            //         }
+            //     })
+            // }
         }        
     }
     
     render() {
         const loggingIn = this.props.loggingIn;     
-        const user = this.state.user;
         return (
             <header id="header">
                 { loggingIn ? 

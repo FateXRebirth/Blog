@@ -1,27 +1,138 @@
-import React from 'react';
+import React from 'react'
+import { Meteor } from 'meteor/meteor';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { user_data } from '../actions/auth.js';
 
-export default class Dashboard extends React.Component {
-    constructor() {
-        super();
+class Dashboard extends React.Component {
+    
+    constructor(props) {
+        super(props);
         this.state = {
-            user: null,
+            user: this.props.auth,
             posts: [],
+        }
+        this.handleChange.bind(this);
+        this.handleCreate.bind(this);
+    }
+
+    handleChange() {
+        let value = $('.ui.form.changeUser').form('validate form');
+        if(value) {
+            let data = $('.ui.form.changeUser').form('get values');
+            userdata = { username: data.username, email: this.props.auth.user.email, password: data.password}
+            Meteor.call('EditUser', { username: data.username, password: data.password }, (error, result) => {
+                if(result) {
+                    console.log(result);
+                    localStorage.setItem('currentUser', data.username);   
+                    this.props.user_data(userdata);
+                } else {
+                    console.log(error);
+                }
+            });
         }
     }
 
-    getUser() {
-
+    handleCreate() {
+        let value = $('.ui.form.addPost').form('validate form');
+        if(value) {
+            let data = $('.ui.form.addPost').form('get values');
+            Meteor.call('CreatePost', { username: this.state.user.username, title: data.title, content: data.content }, (error, result) => {
+                if(result) {
+                    console.log(result);
+                } else {
+                    console.log(error);
+                }
+            })
+        }
     }
 
-    getPosts() {
-
-    }
-
-    addPost() {
-
+    componentDidMount() { 
+        $('.ui.form.changeUser').form({
+            keyboardShortcuts: false,
+            fields: {
+                username: { 
+                    identifier  : 'username',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your username'
+                        }
+                    ]
+                },
+                password: { 
+                    identifier  : 'password',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter your password'
+                        },
+                        {
+                            type   : 'length[6]',
+                            prompt : 'Your password must be at least 6 characters'
+                        }
+                    ]
+                },
+                confirmation: {
+                    identifier  : 'confirmation',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter the confirmation'
+                        },
+                        {
+                            type   : 'length[6]',
+                            prompt : 'The confirmation must be at least 6 characters'
+                        },
+                        {
+                            type   : 'match[password]',
+                            prompt : 'Password and confirmation should be same'
+                        }
+                    ]
+                }
+            },
+            onSuccess: function() {
+                return true
+            },
+            onFailure: function() {
+                return false
+            }
+        }),
+        $('.ui.form.addPost').form({
+            keyboardShortcuts: false,
+            fields: {
+                title: { 
+                    identifier  : 'title',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter title'
+                        }
+                    ]
+                },
+                content: { 
+                    identifier  : 'content',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter content'
+                        }
+                    ]
+                }
+            },
+            onSuccess: function() {
+                return true
+            },
+            onFailure: function() {
+                return false
+            }
+        })               
     }
 
     render() {
+        console.log(this.props);
         return(
             <div className="dashboardPage">
                 <div className="user">
@@ -36,32 +147,28 @@ export default class Dashboard extends React.Component {
                                     Change Your Data
                                 </div>
                             </div>
-                            <div className="ui form success">
+                            <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" placeholder="joe@schmoe.com"/>
+                                    <input type="text" name="username" placeholder={this.state.user.username}/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>
-                                    <input placeholder="Read Only" readOnly type="email"/>
+                                    <input placeholder={this.state.user.email} readOnly type="email"/>
                                 </div>
                                 <div className="field">
                                     <label>Password</label>
-                                    <input type="password" placeholder="joe@schmoe.com"/>
+                                    <input type="password" name="password" id="password" placeholder=""/>
                                 </div>
                                 <div className="field">
                                     <label>Confirmation</label>
-                                    <input type="password" placeholder="joe@schmoe.com"/>
+                                    <input type="password" name="confirmation" placeholder=""/>
                                 </div>
+                                <div className="ui primary button" onClick={this.handleChange}>Save</div>
                                 <div className="ui success message">
-                                    <div className="header">Form Completed</div>
-                                    <p>You're all signed up for the newsletter.</p>
+                                    Successfully!
                                 </div>
-                                <div className="ui error message">
-                                    <div className="header">Action Forbidden</div>
-                                    <p>You can only sign up for an account once with a given e-mail address.</p>
-                                </div>
-                                <div className="ui submit primary button">Submit</div>
+                                <div className="ui error message"></div>
                             </div>
                         </div>
                     </div>
@@ -79,16 +186,20 @@ export default class Dashboard extends React.Component {
                                     Create Your Story
                                 </div>
                             </div>
-                            <div className="ui form">
+                            <div className="ui form addPost">
                                 <div className="field">
                                     <label>Title</label>
-                                    <input type="text" placeholder="joe@schmoe.com"/>
+                                    <input type="text" name="title" placeholder=""/>
                                 </div>
                                 <div className="field">
                                     <label>Content</label>
-                                    <textarea></textarea>
+                                    <textarea name="content"></textarea>
                                 </div>
-                                <div className="ui submit primary button">Submit</div>
+                                <div className="ui primary button" onClick={this.handleCreate}>Create</div>
+                                <div className="ui success message">
+                                    Successfully!
+                                </div>
+                                <div className="ui error message"></div>
                             </div>
                         </div>
                     </div>
@@ -147,8 +258,7 @@ export default class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                </div>
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,3 +266,13 @@ export default class Dashboard extends React.Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return state;
+}
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({user_data}, dispatch)
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard))

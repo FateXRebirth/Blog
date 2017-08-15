@@ -15,21 +15,19 @@ import Blog from './Blog'
 class App extends React.Component {
     
     render () {
-        // console.log(this.props);
         let loggingIn = null;
         let user = null;
         if(localStorage.getItem('currentUser')) {
             loggingIn = true;
-            user = JSON.parse(localStorage.getItem('currentUser'));
+            user = localStorage.getItem('currentUser');
         } else {
             loggingIn = this.props.auth.loggingIn;
-            user = this.props.auth.user;
+            user = this.props.auth.user;  
         }
-
         return (
             <div className="App">      
-                <Navbar loggingIn={loggingIn} user={user} />        
-                <Header loggingIn={loggingIn} user={user} />  
+                <Navbar loggingIn={loggingIn} />        
+                <Header loggingIn={loggingIn} />  
                 <Switch>
                     <Route exact path='/' component={Intro} />            
                     <Route path='/login' component={Login} />

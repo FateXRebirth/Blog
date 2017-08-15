@@ -4,6 +4,7 @@ import { assert, should, expect, be } from 'meteor/practicalmeteor:chai';
 import { describe, it, before } from 'meteor/practicalmeteor:mocha';
 import { Posts } from './posts';
 import './methods';
+import './publication';
 
 if (Meteor.isServer) {
 

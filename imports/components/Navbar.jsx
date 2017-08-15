@@ -43,32 +43,11 @@ class Navbar extends React.Component {
                         ) : (
                             <div className="right item">
                                 <Link to='/login' className="ui item">Log In</Link> 
-                                <Link to='/register' className="ui item">Sign up</Link>
+                                <Link to='/register' className="ui item">Sign Up</Link>
                             </div>
                         )}
                     </div>
                 </div>
-                {/* <div className="ui container" >
-                    <div className="ui large secondary inverted pointing menu">
-                        <a className="toc item">
-                            <i className="sidebar icon"></i>
-                        </a>
-                        <Link to='/' className="active item">Home</Link>
-                        { loggingIn ? (
-                            <div className="right item">
-                                <Link to='/setting' className="ui inverted button">Setting</Link>
-                                <Link to='/blog' className="ui inverted button">Blog</Link>
-                                <Link to='/dashboard' className="ui inverted button">Dashboard</Link> 
-                                <a className="ui inverted button" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
-                            </div>
-                        ) : (
-                            <div className="right item">
-                                <Link to='/login' className="ui inverted button">Log In</Link> 
-                                <Link to='/register' className="ui inverted button">Sign up</Link>
-                            </div>
-                        )}
-                    </div>
-                </div> */}
             </nav>
         )
     }

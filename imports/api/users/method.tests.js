@@ -42,7 +42,7 @@ if (Meteor.isServer) {
             });            
         });
 
-        it('can check exist email with exist user', () => {
+        it('can check exist email with exist user', (done) => {
             Meteor.call('CheckEmail', 'admin@admin.com', (error, result) => {
                 try {
                     expect(result.username).to.equal('admin');
@@ -52,10 +52,10 @@ if (Meteor.isServer) {
             })        
         });
 
-        it('can not check exist email with does not exist user', () => {
+        it('can not check exist email with does not exist user', (done) => {
             Meteor.call('CheckEmail', 'admin1@admin.com', (error, result) => {
                 try {
-                    expect(result).to.be.undefined;
+                    assert.equal(result, undefined);
                     done();
                 } catch (error) { done(error) }
             })

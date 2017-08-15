@@ -17,9 +17,9 @@ class Register extends React.Component {
                     $('.ui.form.signup').form('add errors', [ 'email exist']);  
                 } else {
                     Meteor.call('CreateUser', data.username, data.email, data.password);
-                    localStorage.setItem('currentUser', JSON.stringify(data.username));   
+                    localStorage.setItem('currentUser', data.username);   
                     this.props.user_login();
-                    this.props.user_data(data.username);
+                    this.props.user_data({ username: data.username, email: data.email, password: data.password});
                     this.props.history.push('/blog')                      
                 }
             })
