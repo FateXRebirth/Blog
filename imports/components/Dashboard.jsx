@@ -5,25 +5,23 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { user_data } from '../actions/auth.js';
+import { Random } from 'meteor/random';
 
 class Dashboard extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
-            user: this.props.auth,
             posts: [],
         }
-        this.handleChange.bind(this);
-        this.handleCreate.bind(this);
     }
 
-    handleChange() {
+    handleChange(id, email) {
         let value = $('.ui.form.changeUser').form('validate form');
         if(value) {
             let data = $('.ui.form.changeUser').form('get values');
-            userdata = { username: data.username, email: this.props.auth.user.email, password: data.password}
-            Meteor.call('EditUser', { username: data.username, password: data.password }, (error, result) => {
+            userdata = { id: id, username: data.username, email: email, password: data.password }
+            Meteor.call('EditUser', id, { username: data.username, password: data.password }, (error, result) => {
                 if(result) {
                     console.log(result);
                     localStorage.setItem('currentUser', data.username);   
@@ -35,17 +33,11 @@ class Dashboard extends React.Component {
         }
     }
 
-    handleCreate() {
+    handleCreate(username) {
         let value = $('.ui.form.addPost').form('validate form');
         if(value) {
             let data = $('.ui.form.addPost').form('get values');
-            Meteor.call('CreatePost', { username: this.state.user.username, title: data.title, content: data.content }, (error, result) => {
-                if(result) {
-                    console.log(result);
-                } else {
-                    console.log(error);
-                }
-            })
+            Meteor.call('CreatePost', Random.id(), username, data.title, data.content);
         }
     }
 
@@ -150,11 +142,11 @@ class Dashboard extends React.Component {
                             <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" name="username" placeholder={this.state.user.username}/>
+                                    <input type="text" name="username" placeholder={this.props.auth.user.username}/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>
-                                    <input placeholder={this.state.user.email} readOnly type="email"/>
+                                    <input placeholder={this.props.auth.user.email} readOnly type="email"/>
                                 </div>
                                 <div className="field">
                                     <label>Password</label>
@@ -164,7 +156,7 @@ class Dashboard extends React.Component {
                                     <label>Confirmation</label>
                                     <input type="password" name="confirmation" placeholder=""/>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleChange}>Save</div>
+                                <div className="ui primary button" onClick={this.handleChange.bind(this, this.props.auth.user.id, this.props.auth.user.email)}>Save</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>
@@ -195,7 +187,7 @@ class Dashboard extends React.Component {
                                     <label>Content</label>
                                     <textarea name="content"></textarea>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleCreate}>Create</div>
+                                <div className="ui primary button" onClick={this.handleCreate.bind(this, this.props.auth.user.username)}>Create</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>

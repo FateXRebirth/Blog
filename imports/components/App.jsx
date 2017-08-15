@@ -16,13 +16,10 @@ class App extends React.Component {
     
     render () {
         let loggingIn = null;
-        let user = null;
         if(localStorage.getItem('currentUser')) {
             loggingIn = true;
-            user = localStorage.getItem('currentUser');
         } else {
-            loggingIn = this.props.auth.loggingIn;
-            user = this.props.auth.user;  
+            loggingIn = this.props.auth.loggingIn; 
         }
         return (
             <div className="App">      

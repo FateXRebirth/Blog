@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { user_login, user_data } from '../actions/auth.js';
 
-
 class Login extends React.Component { 
 
     handleLogin() {
@@ -18,7 +17,7 @@ class Login extends React.Component {
                     if(result.password == data.password) {                                
                             localStorage.setItem('currentUser', result.username);
                             this.props.user_login();
-                            this.props.user_data({ username: result.username, email: result.email, password: result.password})
+                            this.props.user_data({ id: result.id, username: result.username, email: result.email, password: result.password})
                             this.props.history.push('/blog')
                     } else {
                         $('.ui.form.login').form('add errors', [ 'password is wrong']);

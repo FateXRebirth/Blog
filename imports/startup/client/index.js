@@ -32,6 +32,15 @@ const store = createStore(
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
+// if (window.performance) {
+//   console.info("window.performance work's fine on this browser");
+// }
+// if (performance.navigation.type == 1) {
+//   console.info( "This page is reloaded" );
+// } else {
+//   console.info( "This page is not reloaded");
+// }
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>

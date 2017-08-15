@@ -3,15 +3,14 @@ import { check } from 'meteor/check';
 import { Posts } from './posts';
 
 Meteor.methods({
-    CreatePost : function(username, title, content) {
+    CreatePost : function(id, username, title, content) {
         check(username, String);
         check(title, String);
         check(content, String);
-        var id = Posts.insert({ username: username, title: title, content: content, createAt: new Date()});
         try {
-            return Posts.update( { username: username, title: title }, { $set: { id: id }});
+            return Posts.insert({ id: id, username: username, title: title, content: content, createAt: new Date()});
         } catch (e) {
-            throw new Meteor.Error('Can not update');
+            throw new Meteor.Error('Can not create');
         }
     },
     EditPost : function(id, data) {

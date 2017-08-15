@@ -3,23 +3,15 @@ import { Meteor } from 'meteor/meteor';
 import { Users } from './users';
 
 Meteor.methods({
-    CreateUser : function(username, email, password) {
+    CreateUser : function(id, username, email, password) {
         check(username, String);
         check(email, String);
         check(password, String);
-        var id;
         try {
-            id = Users.insert( { username: username, email: email, password: password, createAt: new Date() });
+            return Users.insert( { id: id, username: username, email: email, password: password, createAt: new Date() });
         } catch (e) {
             console.log(e);
             throw new Meteor.Error("Can not create");
-        }
-        
-        try {
-            return Users.update( { email: email }, { $set: { id: id }}, {});
-        } catch (e) {
-            console.log(e);
-            throw new Meteor.Error("Can not update");
         }
     },
     EditUser : function(id, data) {

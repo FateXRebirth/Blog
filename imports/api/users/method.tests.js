@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import { assert, should, expect, be } from 'meteor/practicalmeteor:chai';
 import { describe, it, before } from 'meteor/practicalmeteor:mocha';
@@ -10,7 +11,7 @@ if (Meteor.isServer) {
     describe('User methods', function () {
         beforeEach( () => {
             StubCollections.stub(Users);
-            Meteor.call('CreateUser', 'admin', 'admin@admin.com', '123456')
+            Meteor.call('CreateUser',Random.id(), 'admin', 'admin@admin.com', '123456')
         })
         afterEach( () => {
             StubCollections.restore();

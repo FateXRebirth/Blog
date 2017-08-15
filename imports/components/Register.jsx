@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { user_login, user_data } from '../actions/auth.js';
+import { Random } from 'meteor/random';
 
 class Register extends React.Component {
 
@@ -16,11 +17,15 @@ class Register extends React.Component {
                 if(result) {
                     $('.ui.form.signup').form('add errors', [ 'email exist']);  
                 } else {
-                    Meteor.call('CreateUser', data.username, data.email, data.password);
-                    localStorage.setItem('currentUser', data.username);   
-                    this.props.user_login();
-                    this.props.user_data({ username: data.username, email: data.email, password: data.password});
-                    this.props.history.push('/blog')                      
+                    const id = Random.id();
+                    Meteor.call('CreateUser',id ,data.username, data.email, data.password, (error, result) => {
+                        if(result) {
+                            localStorage.setItem('currentUser', data.username);   
+                            this.props.user_login();
+                            this.props.user_data({ id: id, username: data.username, email: data.email, password: data.password});
+                            this.props.history.push('/blog')            
+                        }
+                    });                              
                 }
             })
         }
@@ -144,4 +149,4 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({user_login, user_data}, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(Register)
+export default withRouter(connect(null, mapDispatchToProps)(Register))

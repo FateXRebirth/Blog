@@ -1,4 +1,5 @@
 import { Meteor } from 'meteor/meteor';
+import { Random } from 'meteor/random';
 import StubCollections from 'meteor/hwillson:stub-collections';
 import { assert, should, expect, be } from 'meteor/practicalmeteor:chai';
 import { describe, it, before } from 'meteor/practicalmeteor:mocha';
@@ -12,7 +13,7 @@ if (Meteor.isServer) {
 
         beforeEach( () => {
             StubCollections.stub(Posts);
-            Meteor.call('CreatePost', 'admin', 'title', 'content');
+            Meteor.call('CreatePost', Random.id(), 'admin', 'title', 'content');
         })
 
         afterEach( () => {
