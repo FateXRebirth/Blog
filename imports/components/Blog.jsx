@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// TODO: Refactor UI and UX 
+// FIXME: Image can't display properly
+
 export default class Blog extends React.Component {
+
     constructor() {
         super();
         this.state = {
@@ -10,21 +14,6 @@ export default class Blog extends React.Component {
     }
 
     componentDidMount() {
-        // should get user's post 
-        // $.ajax({
-        //     url: "https://jsonplaceholder.typicode.com/posts",
-        //     cache: false,
-        //     dataType: 'json',
-        //     success: function(data) {
-        //         this.setState( { posts: data}, () => {
-        //             console.log(this.state);
-        //         });
-        //     }.bind(this),
-        //     error: function( jqxhr, textStatus, error ) {
-        //         var err = textStatus + ", " + error;
-        //         console.log( "Request Failed: " + err );
-        //     },
-        // })
         let temp = [
                 {
                     "id": "aabca4d9-076b-4bba-ad9e-e92ed9a589f6",
@@ -75,11 +64,11 @@ export default class Blog extends React.Component {
                                         <p> { post.content } </p>
                                         <Link to='/blog/'> Continue reading </Link>
                                     </div>
-                                    <div className="image">
+                                    {/* <div className="image">
                                         <figure>
                                             <img className="ui circular image" src="/icons/semantic-ui-logo.png"/>
                                         </figure>
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </article>

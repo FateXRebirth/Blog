@@ -50,7 +50,7 @@ if (Meteor.isServer) {
         it('can delete post with exist post', () => {
             var id = Posts.findOne({title: 'title'}).id;
             expect(Meteor.call('DeletePost', id)).to.equal(1);
-            expect(Posts.findOne( { id: id })).to.be.undefined;;            
+            expect(Posts.findOne( { id: id })).to.be.undefined;         
         })
 
         it('can not delete post with does not exist post', () => {
@@ -67,6 +67,21 @@ if (Meteor.isServer) {
             return promise.then( function(result) {
                 assert.equal(result, 0);
             });
+        })
+
+        it('can get post with exist post', (done) => {
+            var id = Posts.findOne( { title: 'title' }).id;
+            Meteor.call('GetPost', id, (error, result) => {
+                try {
+                    expect(result.title).to.equal('title');
+                    expect(result.content).to.equal('content');
+                    done()
+                } catch (error) { done(error) }
+            })
+        })
+
+        it('can not get post with does not exist post', () => {
+            expect(Posts.findOne( { id: 'fake_id' })).to.be.undefined;
         })
     })
 }

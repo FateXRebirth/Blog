@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// TODO: plan to get post's header information
+
 export default class Header extends React.Component {
     
     componentWillReceiveProps(nextProps) {

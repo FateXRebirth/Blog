@@ -1,11 +1,13 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { user_data } from '../actions/auth.js';
 import { Random } from 'meteor/random';
+
+// TODO: EDIT and DELETE function should be implement
 
 class Dashboard extends React.Component {
     
@@ -142,11 +144,11 @@ class Dashboard extends React.Component {
                             <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" name="username" placeholder={this.props.auth.user.username}/>
+                                    <input type="text" name="username" placeholder=""/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>
-                                    <input placeholder={this.props.auth.user.email} readOnly type="email"/>
+                                    <input placeholder="" readOnly type="email"/>
                                 </div>
                                 <div className="field">
                                     <label>Password</label>
@@ -225,7 +227,7 @@ class Dashboard extends React.Component {
                                     </div>
                                     <div className="extra content">
                                         <div className="ui two buttons">
-                                            <div className="ui basic green button">Edit</div>
+                                            <Link to='dashboard/edit/1' className="ui basic green button">Edit</Link> 
                                             <div className="ui basic red button">Delete</div>
                                         </div>
                                     </div>

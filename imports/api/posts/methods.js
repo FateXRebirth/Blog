@@ -29,5 +29,12 @@ Meteor.methods({
         } catch(e) {
             throw new Meteor.Error('Can not delete');
         }
+    },
+    GetPost: function(id) {
+        try {
+            return Posts.findOne( { id: id });
+        } catch(e) {
+            throw new Meteor.Error('Can not get post');
+        }
     }
 })
