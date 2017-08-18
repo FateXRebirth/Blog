@@ -30,11 +30,18 @@ Meteor.methods({
             throw new Meteor.Error('Can not delete');
         }
     },
-    GetPost: function(id) {
+    GetPost : function(id) {
         try {
             return Posts.findOne( { id: id });
         } catch(e) {
             throw new Meteor.Error('Can not get post');
+        }
+    },
+    GetPostUsingName : function(username) {
+        try {
+            return Posts.find( { username: username }).fetch();
+        } catch(e) {
+            throw new Meteor.Error('Can not get posts using username');
         }
     }
 })

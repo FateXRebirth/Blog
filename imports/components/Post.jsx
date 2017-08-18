@@ -6,19 +6,38 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { } from '../actions/auth.js';
 
+// TODO: save post id to store to render header?
 
 class Post extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            post: { title: '', content: ''}
+        }
+    }
+    
+    componentDidMount() {
+        Meteor.call('GetPost', this.props.match.params.id, (error, result) => {
+            if(result) {                
+                this.setState( { post: result });
+            } else {
+                console.log(error)
+            }
+        })
+    }
+    
     render() {
         return(
             <div className="postPage">
                 <div className="ui container">
                     <div className="ui piled segment">
-                        <h1 className="ui header">First header</h1>
+                        <h1 className="ui header"> { this.state.post.title } </h1>
                         <img className="ui small left floated image" src="/images/vscode.png"/>
-                        <p>Te eum doming eirmod, nominati pertinacia argumentum ad his. Ex eam alia facete scriptorem, est autem aliquip detraxit at. Usu ocurreret referrentur at, cu epicurei appellantur vix. Cum ea laoreet recteque electram, eos choro alterum definiebas in. Vim dolorum definiebas an. Mei ex natum rebum iisque.</p>
+                        <p> { this.state.post.content } </p>
                         <img className="ui small right floated image" src="/images/vscode.png"/>
-                        <p>Audiam quaerendum eu sea, pro omittam definiebas ex. Te est latine definitiones. Quot wisi nulla ex duo. Vis sint solet expetenda ne, his te phaedrum referrentur consectetuer. Id vix fabulas oporteat, ei quo vide phaedrum, vim vivendum maiestatis in.</p>
-                        <p>Eu quo homero blandit intellegebat. Incorrupte consequuntur mei id. Mei ut facer dolores adolescens, no illum aperiri quo, usu odio brute at. Qui te porro electram, ea dico facete utroque quo. Populo quodsi te eam, wisi everti eos ex, eum elitr altera utamur at. Quodsi convenire mnesarchum eu per, quas minimum postulant per id.</p>
+                        <p> { this.state.post.content } </p>
+                        <p> { this.state.post.content } </p>
                     </div>
                     <div className="ui comments">
                         <h3 className="ui dividing header">Comments</h3>

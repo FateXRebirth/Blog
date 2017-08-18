@@ -19,14 +19,15 @@ import EditPost from './EditPost';
 
 class App extends React.Component {
     
-    render () {
-        
-        console.log(this.props);
+    render () {        
         let loggingIn = null;
+        let user = null;
         if(localStorage.getItem('currentUser')) {
             loggingIn = true;
+            user = localStorage.getItem('currentUser')
         } else {
             loggingIn = this.props.auth.loggingIn; 
+            user = this.props.auth.user;
         }
         return (
             <div className="App">      
@@ -38,12 +39,12 @@ class App extends React.Component {
                     <Route path='/register' component={Register} /> 
                     <Route exact path='/blog' render={ () => (
                         loggingIn ? (
-                            <Blog />
+                            <Blog user={user}/>
                         ) : (
                             <Redirect to='/login' />
                         )
                     )} /> 
-                    <Route exact path='/blog/:id' render={ () => (
+                    <Route path='/blog/:id' render={ () => (
                         loggingIn ? (
                             <Post />
                         ) : (
@@ -52,7 +53,7 @@ class App extends React.Component {
                     )} /> 
                     <Route exact path='/dashboard' render={ () => (
                         loggingIn ? (
-                            <Dashboard />
+                            <Dashboard user={user}/>
                         ) : (
                             <Redirect to='/login' />
                         )

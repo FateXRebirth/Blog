@@ -4,6 +4,7 @@ import { Users } from './users';
 
 Meteor.methods({
     CreateUser : function(id, username, email, password) {
+        check(id, String);
         check(username, String);
         check(email, String);
         check(password, String);
@@ -27,8 +28,8 @@ Meteor.methods({
         check(email, String);
         return Users.findOne( { email: email } );
     },
-    GetUser : function(username) {
-        check(username, String);
-        return Users.findOne( { username : username } );
+    GetUser : function(id) {
+        check(id, String);
+        return Users.findOne( { id: id } );
     }
 })

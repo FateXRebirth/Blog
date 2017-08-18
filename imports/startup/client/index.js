@@ -9,8 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
 import {persistStore, autoRehydrate} from 'redux-persist'
 
-// import '/imports/stylesheets/style.css';
-
 import App from '../../components/App.jsx';
 import auth from '../../reducers/auth'; 
 
@@ -34,27 +32,25 @@ const store = createStore(
   ),
 )
 
-persistStore(store, {blacklist: ['someTransientReducer']}, () => {
-  console.log('rehydration complete')
-})
+persistStore(store);
 
 // Now you can dispatch navigation actions from anywhere!
 // store.dispatch(push('/foo'))
 
-if (window.performance) {
-  console.info("window.performance work's fine on this browser");
-}
-if (performance.navigation.type == 1) {
-  console.info( "This page is reloaded" );
-} else {
-  console.info( "This page is not reloaded");
-}
+// if (window.performance) {
+//   console.info("window.performance work's fine on this browser");
+// }
+// if (performance.navigation.type == 1) {
+//   console.info( "This page is reloaded" );
+// } else {
+//   console.info( "This page is not reloaded");
+// }
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root')
 )

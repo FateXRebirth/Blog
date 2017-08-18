@@ -15,9 +15,9 @@ class Login extends React.Component {
             Meteor.call('CheckEmail', data.email, (error, result) => {
                 if(result) {
                     if(result.password == data.password) {                                
-                            localStorage.setItem('currentUser', result.username);
+                            localStorage.setItem('currentUser', result.id);
                             this.props.user_login();
-                            this.props.user_data({ id: result.id, username: result.username, email: result.email, password: result.password})
+                            this.props.user_data(result.id)
                             this.props.history.push('/blog')
                     } else {
                         $('.ui.form.login').form('add errors', [ 'password is wrong']);

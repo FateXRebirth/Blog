@@ -6,6 +6,7 @@ class NotFound extends React.Component {
     handleClick() {
         this.props.history.push('/');
     }
+    
     render() {
         return (
             <div className="errorPage">

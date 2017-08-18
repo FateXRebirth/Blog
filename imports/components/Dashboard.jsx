@@ -1,21 +1,19 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { user_data } from '../actions/auth.js';
+import { Link } from 'react-router-dom';
 import { Random } from 'meteor/random';
+import { Posts } from '../api/posts/posts.js';
 
-// TODO: EDIT and DELETE function should be implement
+// TODO: refresh state(posts) afrer user delete
 
-class Dashboard extends React.Component {
+export default class Dashboard extends React.Component {
     
     constructor(props) {
         super(props);
         this.state = {
+            user: {id: '', username: '', email: ''},
             posts: [],
-        }
+        }                
     }
 
     handleChange(id, email) {
@@ -23,15 +21,8 @@ class Dashboard extends React.Component {
         if(value) {
             let data = $('.ui.form.changeUser').form('get values');
             userdata = { id: id, username: data.username, email: email, password: data.password }
-            Meteor.call('EditUser', id, { username: data.username, password: data.password }, (error, result) => {
-                if(result) {
-                    console.log(result);
-                    localStorage.setItem('currentUser', data.username);   
-                    this.props.user_data(userdata);
-                } else {
-                    console.log(error);
-                }
-            });
+            Meteor.call('EditUser', id, { username: data.username, password: data.password });
+            $('.ui.form.changeUser').form('clear')
         }
     }
 
@@ -40,10 +31,35 @@ class Dashboard extends React.Component {
         if(value) {
             let data = $('.ui.form.addPost').form('get values');
             Meteor.call('CreatePost', Random.id(), username, data.title, data.content);
+            $('.ui.form.addPost').form('clear')
         }
     }
 
-    componentDidMount() { 
+    handleDelete(id) {
+        var value = $('.ui.small.modal').modal({            
+            onDeny: function(){                          
+                return true;
+            },
+            onApprove: function() {
+                Meteor.call('DeletePost', id);                       
+                return true;
+            }
+        }).modal('show')
+    }
+
+    componentDidMount() {
+        Meteor.call('GetUser', this.props.user, (error, result) => {
+            if(result) {
+                this.setState( { user : result } );
+            } else {
+                console.log(error);
+            }
+        })          
+
+        Meteor.subscribe('posts.all', () => {
+            this.setState( { posts: Posts.find().fetch() })        
+        });   
+        
         $('.ui.form.changeUser').form({
             keyboardShortcuts: false,
             fields: {
@@ -122,11 +138,10 @@ class Dashboard extends React.Component {
             onFailure: function() {
                 return false
             }
-        })               
+        })            
     }
 
     render() {
-        console.log(this.props);
         return(
             <div className="dashboardPage">
                 <div className="user">
@@ -144,11 +159,11 @@ class Dashboard extends React.Component {
                             <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" name="username" placeholder=""/>
+                                    <input type="text" name="username" value={this.state.user.username}/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>
-                                    <input placeholder="" readOnly type="email"/>
+                                    <input placeholder={this.state.user.email} readOnly type="email"/>
                                 </div>
                                 <div className="field">
                                     <label>Password</label>
@@ -158,7 +173,7 @@ class Dashboard extends React.Component {
                                     <label>Confirmation</label>
                                     <input type="password" name="confirmation" placeholder=""/>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleChange.bind(this, this.props.auth.user.id, this.props.auth.user.email)}>Save</div>
+                                <div className="ui primary button" onClick={this.handleChange.bind(this, this.state.user.id, this.state.user.email)}>Save</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>
@@ -189,7 +204,7 @@ class Dashboard extends React.Component {
                                     <label>Content</label>
                                     <textarea name="content"></textarea>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleCreate.bind(this, this.props.auth.user.username)}>Create</div>
+                                <div className="ui primary button" onClick={this.handleCreate.bind(this, this.state.user.username)}>Create</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>
@@ -212,44 +227,43 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                             <div className="ui cards">
-                                <div className="card">
-                                    <div className="content">
-                                        <img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg"/>
-                                        <div className="header">
-                                            Elliot Fu
-                                        </div>
-                                        <div className="meta">
-                                            Friends of Veronika
-                                        </div>
-                                        <div className="description">
-                                            Elliot requested permission to view your contact details
-                                        </div>
+                                {this.state.posts.map( (post) => {
+                                    return (
+                                        <div key={ post.id } className="card">
+                                            <div className="content">
+                                                <img className="right floated mini ui image" src="/images/avatar/large/elliot.jpg"/>
+                                                <div className="header">
+                                                    { post.title }
+                                                </div>
+                                                <div className="meta">
+                                                    2017/08/20
+                                                </div>
+                                                <div className="description">
+                                                    { post.content }
+                                                </div>
+                                            </div>
+                                            <div className="extra content">
+                                                <div className="ui two buttons">
+                                                    <Link to={`/dashboard/edit/${post.id}`} className="ui basic green button">Edit</Link> 
+                                                    <div className="ui basic red button" onClick={this.handleDelete.bind(this, post.id)}>Delete</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    )             
+                                })}                                                  
+                            </div>
+                            <div className="ui small modal">
+                                <div className="header">Your Post</div>
+                                <div className="content"><p>Are you sure you want to delete this post ?</p></div>
+                                <div className="actions">
+                                    <div className="ui black cancel button">
+                                        <i className="remove icon"></i>
+                                        No
                                     </div>
-                                    <div className="extra content">
-                                        <div className="ui two buttons">
-                                            <Link to='dashboard/edit/1' className="ui basic green button">Edit</Link> 
-                                            <div className="ui basic red button">Delete</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="card">
-                                    <div className="content">
-                                        <img className="right floated mini ui image" src="/images/avatar/large/jenny.jpg"/>
-                                        <div className="header">
-                                            Jenny Hess
-                                        </div>
-                                        <div className="meta">
-                                            New Member
-                                        </div>
-                                        <div className="description">
-                                            Jenny wants to add you to the group <b>best friends</b>
-                                        </div>
-                                    </div>
-                                    <div className="extra content">
-                                        <div className="ui two buttons">
-                                            <div className="ui basic green button">Edit</div>
-                                            <div className="ui basic red button">Delete</div>
-                                        </div>
+                                    <div className="ui green ok button">
+                                        <i className="checkmark icon"></i>
+                                        Yes
                                     </div>
                                 </div>
                             </div>
@@ -260,13 +274,3 @@ class Dashboard extends React.Component {
         )
     }
 }
-
-function mapStateToProps(state) {
-    return state;
-}
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({user_data}, dispatch)
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Dashboard))

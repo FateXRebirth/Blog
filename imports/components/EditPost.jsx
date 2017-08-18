@@ -1,9 +1,14 @@
 import React from 'react';
-import { Link, withRouter } from 'react-router-dom';
-
-// TODO: fetch post title and content to show in the form
+import { withRouter } from 'react-router-dom';
 
 class EditPost extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            post: { title: '', content: ''}
+        }
+    }
 
     handleChange(id) {
         let value = $('.ui.form.editPost').form('validate form');
@@ -14,7 +19,18 @@ class EditPost extends React.Component {
         }
     }
 
+    handleCancel() {
+        this.props.history.push('/dashboard');
+    }
+
     componentDidMount() {
+        Meteor.call('GetPost', this.props.match.params.id, (error, result) => {
+            if(result) {                
+                this.setState( { post: result });
+            } else {
+                console.log(error)
+            }
+        })
         $('.ui.form.editPost').form({
             keyboardShortcuts: false,
             fields: {
@@ -46,8 +62,7 @@ class EditPost extends React.Component {
         })        
     }
 
-    render() {
-        console.log(this.props)
+    render() {        
         return(
             <div className="editpostPage">
                 <div className="ui container">
@@ -64,14 +79,14 @@ class EditPost extends React.Component {
                         <div className="ui form editPost">
                             <div className="field">
                                 <label>Title</label>
-                                <input type="text" name="title" placeholder=""/>
+                                <input type="text" name="title" value={this.state.post.title}/>
                             </div>
                             <div className="field">
                                 <label>Content</label>
-                                <textarea name="content"></textarea>
+                                <textarea name="content" value={this.state.post.content}></textarea>
                             </div>
                             <div className="ui primary button" onClick={this.handleChange.bind(this, this.props.match.params.id)}>Change</div>
-                            <Link to="/dashboard" className="ui secondary button" >Cancel</Link>
+                            <div className="ui secondary button" onClick={this.handleCancel.bind(this)}>Cancel</div>
                             <div className="ui success message">
                                 Successfully!
                             </div>

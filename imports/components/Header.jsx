@@ -3,21 +3,7 @@ import { Link } from 'react-router-dom';
 
 // TODO: plan to get post's header information
 
-export default class Header extends React.Component {
-    
-    componentWillReceiveProps(nextProps) {
-        if(this.props != nextProps) {
-            // if( this.props.user) {
-            //     Meteor.call('GetUser', this.props.user, (error, result) => {
-            //         if(result) {    
-            //             console.log(result);                
-            //         } else {
-            //             console.log(error);
-            //         }
-            //     })
-            // }
-        }        
-    }
+export default class Header extends React.Component {  
     
     render() {
         const loggingIn = this.props.loggingIn;     

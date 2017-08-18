@@ -5,7 +5,6 @@ import { assert, should, expect, be } from 'meteor/practicalmeteor:chai';
 import { describe, it, before } from 'meteor/practicalmeteor:mocha';
 import { Posts } from './posts';
 import './methods';
-import './publication';
 
 if (Meteor.isServer) {
 
@@ -24,7 +23,7 @@ if (Meteor.isServer) {
             assert.equal(Posts.find({}).count(), 1);
         })
             
-        it('can edit post with exist post', () => {
+        it('can edit post with exist id', () => {
             var id = Posts.findOne({title: 'title'}).id;
             Meteor.call('EditPost', id, { title: 'title2', content: 'content2'})
             var result = Posts.findOne({ id: id });
@@ -32,7 +31,7 @@ if (Meteor.isServer) {
             expect(result.content).to.equal('content2');
         })
 
-        it('can not edit post with does not exist post', () => {        
+        it('can not edit post with does not exist id', () => {        
             const promise = new Promise((resolve, reject) => {
                 Meteor.call('EditPost', "fake_id", { title: 'title2', content: 'content2'}, (error, result) => {
                     if (error) {
@@ -47,13 +46,13 @@ if (Meteor.isServer) {
             });            
         })        
             
-        it('can delete post with exist post', () => {
+        it('can delete post with exist id', () => {
             var id = Posts.findOne({title: 'title'}).id;
             expect(Meteor.call('DeletePost', id)).to.equal(1);
             expect(Posts.findOne( { id: id })).to.be.undefined;         
         })
 
-        it('can not delete post with does not exist post', () => {
+        it('can not delete post with does not exist id', () => {
             expect(Meteor.call('DeletePost', "fake_id")).to.equal(0);
             const promise = new Promise((resolve, reject) => {
                 Meteor.call('DeletePost', "fake_id", (error, result) => {
@@ -69,7 +68,7 @@ if (Meteor.isServer) {
             });
         })
 
-        it('can get post with exist post', (done) => {
+        it('can get post with exist id', (done) => {
             var id = Posts.findOne( { title: 'title' }).id;
             Meteor.call('GetPost', id, (error, result) => {
                 try {
@@ -80,8 +79,26 @@ if (Meteor.isServer) {
             })
         })
 
-        it('can not get post with does not exist post', () => {
+        it('can not get post with does not exist id', () => {
             expect(Posts.findOne( { id: 'fake_id' })).to.be.undefined;
+        })
+
+        it('can get posts with exist username', (done) => {
+            Meteor.call('GetPostUsingName', 'admin', (error, result) => {
+                try {
+                    expect(result.length).to.equal(1);
+                    done()
+                } catch (error) { done(error) }
+            })
+        })
+
+        it('can get posts with does not exist username', (done) => {
+            Meteor.call('GetPostUsingName', 'admin2', (error, result) => {
+                try {
+                    expect(result.length).to.equal(0);
+                    done()
+                } catch (error) { done(error) }
+            })
         })
     })
 }

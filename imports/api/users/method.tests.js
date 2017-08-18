@@ -21,14 +21,14 @@ if (Meteor.isServer) {
             assert.equal(Users.find().count(), 1);
         });
         
-        it('can edit user data with exist user', () => {
+        it('can edit user data with exist id', () => {
             var id = Users.findOne({ username: 'admin'}).id;
             expect(Meteor.call('EditUser', id, {username: 'admin2', password: '1234567'})).to.equal(1);
             expect(Users.findOne({ id: id }).username).to.equal('admin2');
             expect(Users.findOne({ id: id }).password).to.equal('1234567');        
         });
 
-        it('can not edit user data with does not exist user', () => {
+        it('can not edit user data with does not exist id', () => {
             const promise = new Promise((resolve, reject) => {
                 Meteor.call('EditUser', "fake_id", { username: 'admin2', password: '1234567'}, (error, result) => {
                     if (error) {
@@ -62,8 +62,9 @@ if (Meteor.isServer) {
             })
         });
 
-        it('can find user data with exist user', (done) => {
-            Meteor.call('GetUser', 'admin', (error, result) => {
+        it('can find user data with exist id', (done) => {
+            var id = Users.findOne({ username: 'admin'}).id;
+            Meteor.call('GetUser', id, (error, result) => {
                 try {
                     expect(result.username).to.equal('admin');
                     expect(result.email).to.equal('admin@admin.com');
@@ -73,9 +74,9 @@ if (Meteor.isServer) {
             });
         });
 
-        it('can not find user data with does not exist user', () => {
+        it('can not find user data with does not exist id', () => {
             const promise = new Promise((resolve, reject) => {
-                Meteor.call('GetUser', 'admin2', (error, result) => {
+                Meteor.call('GetUser', 'fake_id', (error, result) => {
                     if (error) {
                         reject(error);
                     } else {
