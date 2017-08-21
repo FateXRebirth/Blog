@@ -13,21 +13,24 @@ import NotFound from './NotFound';
 import Blog from './Blog';
 import Post from './Post';
 import EditPost from './EditPost';
-
-// TODO: Can't handle user reload page
-// FIXME: deal with localstorage or session
+import DeletePost from './DeletePost';
 
 class App extends React.Component {
     
     render () {        
         let loggingIn = null;
         let user = null;
+        let id = null;
         if(localStorage.getItem('currentUser')) {
             loggingIn = true;
-            user = localStorage.getItem('currentUser')
+            id = localStorage.getItem('id');
+            user = localStorage.getItem('currentUser');
         } else {
             loggingIn = this.props.auth.loggingIn; 
-            user = this.props.auth.user;
+            if(this.props.auth.user) {
+                id = this.props.auth.user.id;
+                user = this.props.auth.user.username;
+            }            
         }
         return (
             <div className="App">      
@@ -53,7 +56,7 @@ class App extends React.Component {
                     )} /> 
                     <Route exact path='/dashboard' render={ () => (
                         loggingIn ? (
-                            <Dashboard user={user}/>
+                            <Dashboard id={id} user={user}/>
                         ) : (
                             <Redirect to='/login' />
                         )
@@ -61,6 +64,13 @@ class App extends React.Component {
                     <Route path='/dashboard/edit/:id' render={ () => (
                         loggingIn ? (
                             <EditPost />
+                        ) : (
+                            <Redirect to='/login' />
+                        )
+                    )} />  
+                    <Route path='/dashboard/delete/:id' render={ () => (
+                        loggingIn ? (
+                            <DeletePost />
                         ) : (
                             <Redirect to='/login' />
                         )

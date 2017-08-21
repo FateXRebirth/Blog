@@ -11,19 +11,11 @@ export default class Blog extends React.Component {
         super();
         this.state = {
             posts: []
-        }        
-        
+        }       
     }
 
-    componentDidMount() {        
-        // Meteor.call('GetPostUsingName', 'admin', (error, result) => {
-        //     if(result) {               
-        //         this.setState( { posts: result } )
-        //     } else {
-        //         console.log(error);
-        //     }
-        // })        
-        Meteor.subscribe('posts.all', () => {
+    componentDidMount() {              
+        Meteor.subscribe('posts.all', this.props.user, () => {
             this.setState( { posts: Posts.find().fetch() })        
         });
     }

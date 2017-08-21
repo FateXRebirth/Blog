@@ -14,11 +14,12 @@ class Login extends React.Component {
             let data = $('.ui.form.login').form('get values');  
             Meteor.call('CheckEmail', data.email, (error, result) => {
                 if(result) {
-                    if(result.password == data.password) {                                
-                            localStorage.setItem('currentUser', result.id);
-                            this.props.user_login();
-                            this.props.user_data(result.id)
-                            this.props.history.push('/blog')
+                    if(result.password == data.password) {          
+                        localStorage.setItem('id', result.id);                      
+                        localStorage.setItem('currentUser', result.username);
+                        this.props.user_login();
+                        this.props.user_data( { id: result.id, username: result.username } );
+                        this.props.history.push('/blog')
                     } else {
                         $('.ui.form.login').form('add errors', [ 'password is wrong']);
                     }     

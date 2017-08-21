@@ -82,7 +82,7 @@ class EditPost extends React.Component {
                 <div className="ui container">
                     <h4 className="ui horizontal divider header">
                         <i className="edit icon"></i>
-                        Edit Posts
+                        Edit Post
                     </h4>
                     <div className="ui stacked segment">
                         <div className="ui info message">

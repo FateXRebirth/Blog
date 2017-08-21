@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { Random } from 'meteor/random';
 import { Posts } from '../api/posts/posts.js';
 
-// TODO: refresh state(posts) afrer user delete
-
 export default class Dashboard extends React.Component {
     
     constructor(props) {
@@ -26,6 +24,16 @@ export default class Dashboard extends React.Component {
         }       
     }
 
+    refresh() {
+        Meteor.call('GetPostUsingName', this.state.user.username, (error, result)=> {
+            if(result) {
+                this.setState( { posts: result })
+            } else {
+                console.log(error);
+            }
+        })
+    }
+
     handleCreate(username) {
         let value = $('.ui.form.addPost').form('validate form');
         if(value) {
@@ -35,27 +43,10 @@ export default class Dashboard extends React.Component {
         }
         this.refresh();
     }
-
-    handleDelete(id) {
-        var value = $('.ui.small.modal').modal({            
-            onDeny: function(){                          
-                return true;
-            },
-            onApprove: function() {
-                Meteor.call('DeletePost', id);      
-                return true;
-            }
-        }).modal('show')        
-    }
-
-    refresh() {
-        Meteor.subscribe('posts.all', () => {
-            this.setState( { posts: Posts.find().fetch() })        
-        }); 
-    }
-
-    componentDidMount() {
-        Meteor.call('GetUser', this.props.user, (error, result) => {
+    
+    componentDidMount() {        
+        
+        Meteor.call('GetUser', this.props.id, (error, result) => {
             if(result) {
                 this.setState( { user : result } );
             } else {
@@ -63,7 +54,7 @@ export default class Dashboard extends React.Component {
             }
         })          
 
-        Meteor.subscribe('posts.all', () => {
+        Meteor.subscribe('posts.all', this.props.user, () => {
             this.setState( { posts: Posts.find().fetch() })        
         });   
         
@@ -243,7 +234,7 @@ export default class Dashboard extends React.Component {
                                                     { post.title }
                                                 </div>
                                                 <div className="meta">
-                                                    2017/08/20
+                                                    2017/08/25
                                                 </div>
                                                 <div className="description">
                                                     { post.content }
@@ -252,27 +243,12 @@ export default class Dashboard extends React.Component {
                                             <div className="extra content">
                                                 <div className="ui two buttons">
                                                     <Link to={`/dashboard/edit/${post.id}`} className="ui basic green button">Edit</Link> 
-                                                    <div className="ui basic red button" onClick={this.handleDelete.bind(this, post.id)}>Delete</div>
-                                                    
+                                                    <Link to={`/dashboard/delete/${post.id}`} className="ui basic red button">Delete</Link> 
                                                 </div>
-                                            </div>
+                                            </div>                                            
                                         </div> 
                                     )             
                                 })}                                                  
-                            </div>
-                            <div className="ui small modal">
-                                <div className="header">Your Post</div>
-                                <div className="content"><p>Are you sure you want to delete this post ?</p></div>
-                                <div className="actions">
-                                    <div className="ui black cancel button">
-                                        <i className="remove icon"></i>
-                                        No
-                                    </div>
-                                    <div className="ui green ok button">
-                                        <i className="checkmark icon"></i>
-                                        Yes
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

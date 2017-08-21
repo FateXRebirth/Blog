@@ -20,9 +20,10 @@ class Register extends React.Component {
                     const id = Random.id();
                     Meteor.call('CreateUser',id ,data.username, data.email, data.password, (error, result) => {
                         if(result) {
-                            localStorage.setItem('currentUser', id);   
+                            localStorage.setItem('id', id);
+                            localStorage.setItem('currentUser', data.username);   
                             this.props.user_login();
-                            this.props.user_data(id);
+                            this.props.user_data( { id: id, username: data.username } );
                             this.props.history.push('/blog')            
                         }
                     });                              
