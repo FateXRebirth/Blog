@@ -23,7 +23,7 @@ export default class Dashboard extends React.Component {
             userdata = { id: id, username: data.username, email: email, password: data.password }
             Meteor.call('EditUser', id, { username: data.username, password: data.password });
             $('.ui.form.changeUser').form('clear')
-        }
+        }       
     }
 
     handleCreate(username) {
@@ -33,6 +33,7 @@ export default class Dashboard extends React.Component {
             Meteor.call('CreatePost', Random.id(), username, data.title, data.content);
             $('.ui.form.addPost').form('clear')
         }
+        this.refresh();
     }
 
     handleDelete(id) {
@@ -41,10 +42,16 @@ export default class Dashboard extends React.Component {
                 return true;
             },
             onApprove: function() {
-                Meteor.call('DeletePost', id);                       
+                Meteor.call('DeletePost', id);      
                 return true;
             }
-        }).modal('show')
+        }).modal('show')        
+    }
+
+    refresh() {
+        Meteor.subscribe('posts.all', () => {
+            this.setState( { posts: Posts.find().fetch() })        
+        }); 
     }
 
     componentDidMount() {
@@ -159,7 +166,7 @@ export default class Dashboard extends React.Component {
                             <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" name="username" value={this.state.user.username}/>
+                                    <input type="text" name="username" placeholder={this.state.user.username}/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>

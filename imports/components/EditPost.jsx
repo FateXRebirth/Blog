@@ -6,7 +6,8 @@ class EditPost extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            post: { title: '', content: ''}
+            title: '', 
+            content: ''
         }
     }
 
@@ -23,10 +24,23 @@ class EditPost extends React.Component {
         this.props.history.push('/dashboard');
     }
 
+    onTitleChange(event) {
+        this.setState({
+            title: event.target.value
+       });
+    }
+
+    onContentChange(event) {
+        this.setState({
+            content: event.target.value
+       });
+    }
+    
+
     componentDidMount() {
         Meteor.call('GetPost', this.props.match.params.id, (error, result) => {
             if(result) {                
-                this.setState( { post: result });
+                this.setState( { title: result.title, content: result.content });
             } else {
                 console.log(error)
             }
@@ -79,11 +93,11 @@ class EditPost extends React.Component {
                         <div className="ui form editPost">
                             <div className="field">
                                 <label>Title</label>
-                                <input type="text" name="title" value={this.state.post.title}/>
+                                <input type="text" name="title" value={this.state.title} onChange={this.onTitleChange.bind(this)}/>
                             </div>
                             <div className="field">
                                 <label>Content</label>
-                                <textarea name="content" value={this.state.post.content}></textarea>
+                                <textarea name="content" value={this.state.content} onChange={this.onContentChange.bind(this)}></textarea>
                             </div>
                             <div className="ui primary button" onClick={this.handleChange.bind(this, this.props.match.params.id)}>Change</div>
                             <div className="ui secondary button" onClick={this.handleCancel.bind(this)}>Cancel</div>
