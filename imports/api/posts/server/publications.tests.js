@@ -11,6 +11,11 @@ describe('Post publications', function () {
             title: 'test_title',
             content: 'test_content',
         });
+        Posts.insert({
+            username: 'test2',
+            title: 'test_title2',
+            content: 'test_content2',
+        });
     });
 
     it('should get all posts of user', function (done) {

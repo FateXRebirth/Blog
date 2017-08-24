@@ -54,9 +54,17 @@ export default class Dashboard extends React.Component {
             }
         })          
 
-        Meteor.subscribe('posts.all', this.props.user, () => {
-            this.setState( { posts: Posts.find().fetch() })        
-        });   
+        // Meteor.subscribe('posts.all', this.props.user, () => {
+        //     this.setState( { posts: Posts.find().fetch() })        
+        // });   
+
+        Meteor.call('GetPostUsingName', this.props.user, (error, result)=> {
+            if(result) {
+                this.setState( { posts: result })
+            } else {
+                console.log(error);
+            }
+        })
         
         $('.ui.form.changeUser').form({
             keyboardShortcuts: false,

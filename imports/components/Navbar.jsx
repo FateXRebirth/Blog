@@ -8,7 +8,7 @@ import { user_logout } from '../actions/auth.js';
 class Navbar extends React.Component {
 
     handleLogout() {
-        this.props.user_logout()
+        this.props.user_logout(null);
         localStorage.clear();
         this.props.history.push('/');
     }

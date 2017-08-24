@@ -15,9 +15,13 @@ export default class Blog extends React.Component {
     }
 
     componentDidMount() {              
-        Meteor.subscribe('posts.all', this.props.user, () => {
-            this.setState( { posts: Posts.find().fetch() })        
-        });
+        Meteor.call('GetPostUsingName', this.props.user, (error, result)=> {
+            if(result) {
+                this.setState( { posts: result })
+            } else {
+                console.log(error);
+            }
+        })
     }
     
     render() {                
