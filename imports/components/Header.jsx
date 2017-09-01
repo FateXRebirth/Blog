@@ -1,18 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-// TODO: plan to get post's header information
-
-export default class Header extends React.Component {  
+export default class Header extends React.Component { 
     
     render() {
-        const loggingIn = this.props.loggingIn;     
+        const loggingIn = this.props.loggingIn; 
         return (
             <header id="header">
                 { loggingIn ? 
                 (<div className="ui container">
-                    <p className="title">Welcome!</p>
-                    <p className="content">My name is Daniel Imms, I'm a software engineer from Australia. I live in Redmond and work at Microsoft on Visual Studio Code. I use this blog as a platform to learn, revise and teach various software development topics.</p>
+                <p className="title">Welcome!</p>
+                <p className="content">My name is Kevin Peng, I'm a software engineer from Taiwan. I live in Taipei and work at Microsoft on Visual Studio Code. I use this blog as a platform to learn, revise and teach various software development topics.</p>
                 </div>) : 
                 (<div className="ui container">
                     <p className="title">Create a unique blog</p>

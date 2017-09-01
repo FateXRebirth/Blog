@@ -18,7 +18,6 @@ import DeletePost from './DeletePost';
 class App extends React.Component {
     
     render () {     
-        console.log(this.props);   
         let loggingIn = null;
         let user = null;
         let id = null;

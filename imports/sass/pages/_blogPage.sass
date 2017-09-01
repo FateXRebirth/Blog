@@ -4,25 +4,46 @@
      -moz-box-sizing: border-box;
           box-sizing: border-box;
     padding: 100px 0px;
-    color: #9B59BF;
-    font-size: 2rem;
+    // color: #9B59BF;
+    // font-size: 2rem;
     article {
         .title {
-            padding: 10px 5px;
-            border: 2px solid black;
+            
+            padding: 30px 5px;
             background-color: #EAEAEA;
             min-height: 200px;
             .link {
-                color: #9B59BF;
+                .link-text {
+                    font-family: "Lucida Console", Sans-serif;
+                    color: #9B59BF;
+                    font-size: 2.5rem;
+                    text-shadow: 0.5px 0.5px 0.5px black;
+                }               
+                margin-bottom: 20px;
             }
             .date {
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                font-family: "Lucida Console", Sans-serif;
+                font-style: italic;
+                color: rgb(51.5%, 50.2%, 50.2%);
+                margin-bottom: 20px;
+            }
+            .label {
+                font-size: 1rem;
+                font-weight: bold;
+                font-family: "Lucida Console", Sans-serif;
             }
         }
         .content {
-            border: 2px solid black;
-            padding: 10px 5px;
+            padding: 30px 5px;
             min-height: 200px;
+            p {
+                font-family: "Lucida Console", Sans-serif;
+                font-size: 1.5rem;
+            }
+            .button-text {
+                font-family: "Lucida Console", Sans-serif;
+                font-size: 2rem;
+            }
         }
     }
 }

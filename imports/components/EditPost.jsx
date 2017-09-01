@@ -7,6 +7,7 @@ class EditPost extends React.Component {
         super(props);
         this.state = {
             title: '', 
+            outline: '',
             content: ''
         }
     }
@@ -15,7 +16,7 @@ class EditPost extends React.Component {
         let value = $('.ui.form.editPost').form('validate form');
         if(value) {
             let data = $('.ui.form.editPost').form('get values');
-            Meteor.call('EditPost', id, { title: data.title, content: data.content} );
+            Meteor.call('EditPost', id, { title: data.title, outline: data.outline, content: data.content} );
             this.props.history.push('/dashboard');
         }
     }
@@ -30,6 +31,12 @@ class EditPost extends React.Component {
        });
     }
 
+    onOutlineChange(event) {
+        this.setState({
+            outline: event.target.value
+       });
+    }
+
     onContentChange(event) {
         this.setState({
             content: event.target.value
@@ -40,7 +47,7 @@ class EditPost extends React.Component {
     componentDidMount() {
         Meteor.call('GetPost', this.props.match.params.id, (error, result) => {
             if(result) {                
-                this.setState( { title: result.title, content: result.content });
+                this.setState( { title: result.title, outline: result.outline, content: result.content });
             } else {
                 console.log(error)
             }
@@ -55,6 +62,19 @@ class EditPost extends React.Component {
                             type   : 'empty',
                             prompt : 'Please enter title'
                         }
+                    ]
+                },
+                outline: {
+                    identifier: 'outline',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a outline'
+                        },
+                        // {
+                        //     type   : 'maxLength[50]',
+                        //     prompt : 'Your outline cannot be longer than {ruleValue} characters'
+                        // }
                     ]
                 },
                 content: { 
@@ -94,6 +114,10 @@ class EditPost extends React.Component {
                             <div className="field">
                                 <label>Title</label>
                                 <input type="text" name="title" value={this.state.title} onChange={this.onTitleChange.bind(this)}/>
+                            </div>
+                            <div className="field">
+                                <label>Outline</label>
+                                <input type="text" name="outline" value={this.state.outline} onChange={this.onOutlineChange.bind(this)}/>
                             </div>
                             <div className="field">
                                 <label>Content</label>

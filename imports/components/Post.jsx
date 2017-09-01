@@ -1,12 +1,5 @@
 import React from 'react'
-import { Meteor } from 'meteor/meteor';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { } from '../actions/auth.js';
-
-// TODO: save post id to store to render header?
 
 class Post extends React.Component {
 
@@ -126,8 +119,4 @@ class Post extends React.Component {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({}, dispatch)
-}
-
-export default withRouter(connect(null, mapDispatchToProps)(Post))
+export default withRouter(Post);

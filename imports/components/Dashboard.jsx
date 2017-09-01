@@ -38,7 +38,7 @@ export default class Dashboard extends React.Component {
         let value = $('.ui.form.addPost').form('validate form');
         if(value) {
             let data = $('.ui.form.addPost').form('get values');
-            Meteor.call('CreatePost', Random.id(), username, data.title, data.content);
+            Meteor.call('CreatePost', Random.id(), username, data.title, data.outline, data.content);
             $('.ui.form.addPost').form('clear')
         }
         this.refresh();
@@ -128,6 +128,19 @@ export default class Dashboard extends React.Component {
                         }
                     ]
                 },
+                outline: {
+                    identifier: 'outline',
+                    rules: [
+                        {
+                            type   : 'empty',
+                            prompt : 'Please enter a outline'
+                        },
+                        // {
+                        //     type   : 'maxLength[50]',
+                        //     prompt : 'Your outline cannot be longer than {ruleValue} characters'
+                        // }
+                    ]
+                },
                 content: { 
                     identifier  : 'content',
                     rules: [
@@ -204,11 +217,15 @@ export default class Dashboard extends React.Component {
                             <div className="ui form addPost">
                                 <div className="field">
                                     <label>Title</label>
-                                    <input type="text" name="title" placeholder=""/>
+                                    <input type="text" name="title" placeholder="Enter title here"/>
+                                </div>
+                                <div className="field">
+                                    <label>Outline</label>
+                                    <input type="text" name="outline" placeholder="Enter outline here"/>
                                 </div>
                                 <div className="field">
                                     <label>Content</label>
-                                    <textarea name="content"></textarea>
+                                    <textarea name="content" placeholder="Enter content here"></textarea>
                                 </div>
                                 <div className="ui primary button" onClick={this.handleCreate.bind(this, this.state.user.username)}>Create</div>
                                 <div className="ui success message">
@@ -242,10 +259,10 @@ export default class Dashboard extends React.Component {
                                                     { post.title }
                                                 </div>
                                                 <div className="meta">
-                                                    2017/08/25
+                                                    { post.createAt }
                                                 </div>
                                                 <div className="description">
-                                                    { post.content }
+                                                    { post.outline }
                                                 </div>
                                             </div>
                                             <div className="extra content">

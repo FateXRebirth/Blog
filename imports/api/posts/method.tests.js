@@ -12,7 +12,7 @@ if (Meteor.isServer) {
 
         beforeEach( () => {
             StubCollections.stub(Posts);
-            Meteor.call('CreatePost', Random.id(), 'admin', 'title', 'content');
+            Meteor.call('CreatePost', Random.id(), 'admin', 'title', 'outline', 'content');
         })
 
         afterEach( () => {
@@ -25,15 +25,16 @@ if (Meteor.isServer) {
             
         it('can edit post with exist id', () => {
             var id = Posts.findOne({title: 'title'}).id;
-            Meteor.call('EditPost', id, { title: 'title2', content: 'content2'})
+            Meteor.call('EditPost', id, { title: 'title2', outline: 'outline2', content: 'content2'})
             var result = Posts.findOne({ id: id });
             expect(result.title).to.equal('title2');
+            expect(result.outline).to.equal('outline2');
             expect(result.content).to.equal('content2');
         })
 
         it('can not edit post with does not exist id', () => {        
             const promise = new Promise((resolve, reject) => {
-                Meteor.call('EditPost', "fake_id", { title: 'title2', content: 'content2'}, (error, result) => {
+                Meteor.call('EditPost', "fake_id", { title: 'title2', outline: 'outline2', content: 'content2'}, (error, result) => {
                     if (error) {
                         reject(error);
                     } else {

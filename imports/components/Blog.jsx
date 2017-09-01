@@ -33,16 +33,16 @@ export default class Blog extends React.Component {
                         <article key={post.id} className="">
                             <div className="title">
                                 <header className="ui container">
-                                    <Link to={`/blog/${post.id}`} className="link"> { post.title } </Link>
-                                    <div className="date"> 2017/08/10 </div>
-                                    <p> Algorithm C# Computer science Java JavaScript Open source Python Ruby Sorting </p>
+                                    <div className="link"><Link to={`/blog/${post.id}`} className="link-text"> { post.title } </Link></div>
+                                    <div className="date"> { post.createAt } </div>
+                                    <p className="label"> Algorithm &emsp; C# &emsp; Computer &emsp; science &emsp; Java &emsp; JavaScript &emsp; Python &emsp; Ruby </p>
                                 </header>
                             </div>
                             <div className="content">
                                 <div className="ui container">
                                     <div className="text">
-                                        <p> { post.content } </p>
-                                        <Link to={`/blog/${post.id}`} > Continue reading </Link>
+                                        <p> { post.outline } </p>
+                                        <Link to={`/blog/${post.id}`} className="button-text" > Continue reading </Link>
                                     </div>
                                     {/* <div className="image">
                                         <figure>
