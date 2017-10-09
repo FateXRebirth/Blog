@@ -24,14 +24,12 @@ class Post extends React.Component {
         return(
             <div className="postPage">
                 <div className="ui container">
-                    <div className="ui piled segment">
+                    
                         <h1 className="ui header"> { this.state.post.title } </h1>
-                        <img className="ui small left floated image" src="/images/vscode.png"/>
+                       
                         <p> { this.state.post.content } </p>
-                        <img className="ui small right floated image" src="/images/vscode.png"/>
-                        <p> { this.state.post.content } </p>
-                        <p> { this.state.post.content } </p>
-                    </div>
+                       
+                    
                     <div className="ui comments">
                         <h3 className="ui dividing header">Comments</h3>
                         <div className="comment">
