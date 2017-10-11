@@ -37,8 +37,8 @@ class Navbar extends React.Component {
                         </div>
                         { loggingIn ? (
                             <div className="right item">
-                                <Link to='/dashboard' className="ui item">Dashboard</Link>
-                                <a className="ui item" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
+                                <Link to='/dashboard' id="dashboard" className="ui item">Dashboard</Link>
+                                <a className="ui item" id="logout" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
                             </div>
                         ) : (
                             <div className="right item">

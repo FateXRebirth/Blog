@@ -10,6 +10,5 @@ Scenario: Visit the site
 
 @watch
 Scenario: Register
-    Given I am on the site
     When I click "Sign Up" button
     Then I should on the "register" page

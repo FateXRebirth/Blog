@@ -84,16 +84,16 @@ class Login extends React.Component {
                             <div className="field">
                                 <div className="ui left icon input">
                                     <i className="user icon"></i>
-                                    <input type="text" name="email" placeholder="E-mail address"/>
+                                    <input type="text" name="email" placeholder="E-mail address" id="login-email"/>
                                 </div>
                             </div>
                             <div className="field">
                                 <div className="ui left icon input">
                                     <i className="lock icon"></i>
-                                    <input type="password" name="password" placeholder="Password"/>
+                                    <input type="password" name="password" placeholder="Password" id="login-password"/>
                                 </div>
                             </div>
-                            <div className="ui fluid large teal button" onClick={this.handleLogin.bind(this)}>Login</div>
+                            <div className="ui fluid large teal button" id="login-button" onClick={this.handleLogin.bind(this)}>Login</div>
                         </div>
 
                         <div className="ui error message"></div>
