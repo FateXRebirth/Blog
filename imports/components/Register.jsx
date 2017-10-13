@@ -112,31 +112,31 @@ class Register extends React.Component {
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="user icon"></i>
-                                <input type="text" name="username" placeholder="Username"/>
+                                <input type="text" name="username" placeholder="Username" id="register-username"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="mail icon"></i>
-                                <input type="text" name="email" placeholder="Email Address"/>
+                                <input type="text" name="email" placeholder="Email Address" id="register-email"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="lock icon"></i>
-                                <input type="password" name="password" id="password" placeholder="Password"/>
+                                <input type="password" name="password" id="password" placeholder="Password" id="register-password"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="check circle icon"></i>
-                                <input type="password" name="confirmation" placeholder="Confirmation"/>
+                                <input type="password" name="confirmation" placeholder="Confirmation" id="register-confirmation"/>
                             </div>
                         </div>
-                        <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)}>Sign Up</div>
+                        <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)} id="register-button">Sign Up</div>
                     </div>
 
-                    <div className="ui error message"></div>
+                    <div className="ui error message" id="errors"></div>
 
                     </form>                
                 </div>

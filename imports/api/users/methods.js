@@ -71,5 +71,13 @@ Meteor.methods({
     GetUser : function(id) {
         check(id, String);
         return Users.findOne( { id: id } );
+    },
+    DeleteUser: function(id) {
+        check(id, String);
+        try {
+            return Users.remove({ id: id } );
+        } catch(e) {
+            throw new Meteor.Error('Can not delete');
+        }
     }
 })

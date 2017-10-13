@@ -62,6 +62,28 @@ if (Meteor.isServer) {
             })
         });
 
+        it('can delete user with exist id', () => {
+            var id = Users.findOne({ username: 'admin'}).id;
+            expect(Meteor.call('DeleteUser', id)).to.equal(1);
+            expect(Users.findOne( { id: id })).to.be.undefined;         
+        })
+
+        it('can not delete user with does not exist id', () => {
+            expect(Meteor.call('DeleteUser', "fake_id")).to.equal(0);
+            const promise = new Promise((resolve, reject) => {
+                Meteor.call('DeleteUser', "fake_id", (error, result) => {
+                    if (error) {
+                        reject(error);
+                    } else {
+                        resolve(result);
+                    }
+                });
+            });
+            return promise.then( function(result) {
+                assert.equal(result, 0);
+            });
+        })
+
         it('can find user data with exist id', (done) => {
             var id = Users.findOne({ username: 'admin'}).id;
             Meteor.call('GetUser', id, (error, result) => {

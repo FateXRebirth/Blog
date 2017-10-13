@@ -7,10 +7,11 @@ Feature: Blog
 
 @watch
 Scenario: Visit the site
-    Then I am on the site
+    When I visit "index" page
     Then "App" should on the page
-    And I can see "Log In" button
-    And I can see "Sign Up" button
+    Then I should on the "index" page
+    Then I can see "Log In" button
+    Then I can see "Sign Up" button
 
 @watch
 Scenario: Log in
@@ -27,7 +28,24 @@ Scenario: Login as Admin
     And I can see "Log Out" button
 
 @watch
+Scenario: Dashboard page
+    When I click "Dashboard" button
+    Then I should on the "dashboard" page
+    Then "user" should on the page
+    Then "post" should on the page
+    Then "posts" should on the page
+
+@watch
+Scenario: user profile
+
+
+@watch
 Scenario: Log out
     When I click "Log Out" button
     Then "App" should on the page
-    And I am on the site
+    Then I should on the "index" page
+
+@watch
+Scenario: Visit wrong page
+    Then I visit "error" page
+    Then I should on the "notFound" page
