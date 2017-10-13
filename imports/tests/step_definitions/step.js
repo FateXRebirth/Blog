@@ -1,7 +1,7 @@
 module.exports = function() {  
     'use strict';
 
-    this.Given(/^I am on the site$/, function () {
+    this.Then(/^I am on the site$/, function () {
         // browser.waitForExist('body *');
         // browser.waitForVisible('body *');
         browser.url('http://localhost:3000');
@@ -10,18 +10,34 @@ module.exports = function() {
     });
 
     this.When(/^I click "([^"]*)" button$/, function(arg) {
-        if(arg == 'Log In') {
-            browser.click('#login');
-        } else if(arg == 'Sign Up') {
-            browser.click('#register');
-        } else if(arg == 'Log Out') {
-            browser.click('#logout');
+        let btn = null;
+        switch(arg) {
+            case "Log In":
+                btn = "#login";
+                break;
+            case "Sign Up":
+                btn = "#register";
+                break;
+            case "Log Out":
+                btn = "#logout";
+                break;
+            case "Dashboard":
+                btn = "#dashboard";
+                break;
         }
+        browser.click(btn);
     });
 
     this.Then(/^I should on the "([^"]*)" page$/, function (arg) {
         // Write code here that turns the phrase above into concrete actions
         expect(browser.getUrl()).toEqual('http://localhost:3000/'+ arg);
+    });
+
+    this.Then(/^"([^"]*)" should on the page$/, function(arg) {
+        // Write code here that turns the phrase above into concrete actions
+        let element = '.' + arg;
+        expect(browser.isVisible(element)).toBe(true);
+        expect(browser.isExisting(element)).toBe(true);
     });
 
     this.When(/^I login as Admin$/, function () {
@@ -31,7 +47,12 @@ module.exports = function() {
         browser.click('#login-button');
     });
 
-    this.When(/^I can see "([^"]*)" button$/, function (arg1) {
+    this.When(/^I register as Admin$/, function () {
+        // Write code here that turns the phrase above into concrete actions
+        return 'pending';
+    });
+
+    this.Then(/^I can see "([^"]*)" button$/, function (arg1) {
         // Write code here that turns the phrase above into concrete actions
         let btn = null;
         switch(arg1) {
@@ -47,9 +68,24 @@ module.exports = function() {
             case "Dashboard":
                 btn = "#dashboard";
                 break;
+            case "login":
+                btn = "#login-button"
+                break;
         }
         expect(browser.isVisible(btn)).toBe(true);
         expect(browser.isExisting(btn)).toBe(true);
+    });
+
+    this.Then(/^I should see error message on page$/, function () {
+        // Write code here that turns the phrase above into concrete actions
+        return 'pending';
+    });
+
+    this.Given(/^there are the following messages:$/, function (table) {
+        // Write code here that turns the phrase above into concrete actions
+        table.hashes().forEach( (row) => {
+            // console.log(row.Message);
+        })
     });
     
 };
