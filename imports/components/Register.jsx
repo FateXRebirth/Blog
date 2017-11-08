@@ -15,7 +15,7 @@ class Register extends React.Component {
             let data = $('.ui.form.signup').form('get values');
             Meteor.call('CheckEmail', data.email, (error, result) => {
                 if(result) {
-                    $('.ui.form.signup').form('add errors', [ 'email exist']);  
+                    $('.ui.form.signup').form('add errors', [ 'Email exist']);  
                 } else {
                     const id = Random.id();
                     Meteor.call('CreateUser',id ,data.username, data.email, data.password, (error, result) => {
@@ -112,28 +112,28 @@ class Register extends React.Component {
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="user icon"></i>
-                                <input type="text" name="username" placeholder="Username" id="register-username"/>
+                                <input type="text" name="username" placeholder="Username" id="username"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="mail icon"></i>
-                                <input type="text" name="email" placeholder="Email Address" id="register-email"/>
+                                <input type="text" name="email" placeholder="Email Address" id="email"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="lock icon"></i>
-                                <input type="password" name="password" id="password" placeholder="Password" id="register-password"/>
+                                <input type="password" name="password" id="password" placeholder="Password" id="password"/>
                             </div>
                         </div>
                         <div className="field">
                             <div className="ui left icon input">
                                 <i className="check circle icon"></i>
-                                <input type="password" name="confirmation" placeholder="Confirmation" id="register-confirmation"/>
+                                <input type="password" name="confirmation" placeholder="Confirmation" id="confirmation"/>
                             </div>
                         </div>
-                        <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)} id="register-button">Sign Up</div>
+                        <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)} id="register">Register</div>
                     </div>
 
                     <div className="ui error message" id="errors"></div>

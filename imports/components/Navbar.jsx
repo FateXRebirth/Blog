@@ -38,12 +38,12 @@ class Navbar extends React.Component {
                         { loggingIn ? (
                             <div className="right item">
                                 <Link to='/dashboard' id="dashboard" className="ui item">Dashboard</Link>
-                                <a className="ui item" id="logout" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
+                                <a className="ui item" id="log-out" onClick={this.handleLogout.bind(this)}>Log Out</a>                                
                             </div>
                         ) : (
                             <div className="right item">
-                                <Link to='/login' id="login" className="ui item">Log In</Link> 
-                                <Link to='/register' id="register" className="ui item">Sign Up</Link>
+                                <Link to='/login' id="log-in" className="ui item">Log In</Link> 
+                                <Link to='/register' id="sign-up" className="ui item">Sign Up</Link>
                             </div>
                         )}
                     </div>
