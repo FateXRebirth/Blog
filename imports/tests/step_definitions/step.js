@@ -49,6 +49,9 @@ module.exports = function() {
             case "register":
                 btn = "#register";
                 break;
+            default:
+                btn = "#" + arg1;
+                break;
         }
         expect(browser.isVisible(btn)).toBe(true);
         expect(browser.isExisting(btn)).toBe(true);
@@ -75,6 +78,9 @@ module.exports = function() {
             case "register":
                 btn = "#register";
                 break;
+            default:
+                btn = "#" + arg1;
+                break;
         }
         browser.click(btn);
     });
@@ -97,8 +103,8 @@ module.exports = function() {
         var element = browser.element('#errors').getText();        
         var exist = -1;
         table.hashes().forEach( (row) => {
-            console.log(row.Message);
-            console.log(element.indexOf(row.Message));
+            // console.log(row.Message);
+            // console.log(element.indexOf(row.Message));
             if(element.indexOf(row.Message) !== -1) {
                 exist = 1;
             }

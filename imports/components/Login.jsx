@@ -20,10 +20,10 @@ class Login extends React.Component {
                         this.props.user_login({ id: result.id, username: result.username });
                         this.props.history.push('/blog')
                     } else {
-                        $('.ui.form.login').form('add errors', [ 'password is wrong']);
+                        $('.ui.form.login').form('add errors', [ 'Password is wrong']);
                     }     
                 } else {
-                    $('.ui.form.login').form('add errors', [ 'email do not exist']);  
+                    $('.ui.form.login').form('add errors', [ 'Email does not exist']);  
                 }
             })
         }       
@@ -96,12 +96,12 @@ class Login extends React.Component {
                             <div className="ui fluid large teal button" id="login" onClick={this.handleLogin.bind(this)}>Login</div>
                         </div>
 
-                        <div className="ui error message"></div>
+                        <div className="ui error message" id="errors"></div>
 
                     </form>
 
                     <div className="ui message">
-                        New to us? <Link to='/register'>Sign Up</Link>
+                        New to us? <Link to='/register' id="redirect">Sign Up</Link>
                     </div>
                 </div>
             </div>

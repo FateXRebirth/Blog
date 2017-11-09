@@ -52,8 +52,8 @@ Scenario: Register with different password
     And I fill in "email" with "admin@admin.com"
     And I fill in "password" with "123456"
     And I fill in "confirmation" with "1234567"
-    Then I should be on the "register" page
     And I press "register" button
+    Then I should be on the "register" page
     Then I should see "Password and confirmation should be same" message on the page
 
 @watch
