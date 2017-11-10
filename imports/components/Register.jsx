@@ -136,7 +136,7 @@ class Register extends React.Component {
                         <div className="ui fluid large teal button" onClick={this.handleRegister.bind(this)} id="register">Register</div>
                     </div>
 
-                    <div className="ui error message" id="errors"></div>
+                    <div className="ui error message"></div>
 
                     </form>                
                 </div>

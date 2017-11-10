@@ -21,6 +21,10 @@ export default class Dashboard extends React.Component {
             userdata = { id: id, username: data.username, email: email, password: data.password }
             Meteor.call('EditUser', id, { username: data.username, password: data.password });
             $('.ui.form.changeUser').form('clear')
+            // this.setState(Object.assign({}, this.state.user, { username: data.username }), () => {
+            //     console.log(this.state);
+            // })
+            document.getElementById("username").placeholder = data.username;
         }       
     }
 
@@ -178,7 +182,7 @@ export default class Dashboard extends React.Component {
                             <div className="ui form changeUser">
                                 <div className="field">
                                     <label>Username</label>
-                                    <input type="text" name="username" placeholder={this.state.user.username}/>
+                                    <input type="text" name="username" id="username" placeholder={this.state.user.username}/>
                                 </div>
                                 <div className="field">
                                     <label>E-mail</label>
@@ -190,9 +194,9 @@ export default class Dashboard extends React.Component {
                                 </div>
                                 <div className="field">
                                     <label>Confirmation</label>
-                                    <input type="password" name="confirmation" placeholder=""/>
+                                    <input type="password" name="confirmation" id="confirmation" placeholder=""/>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleChange.bind(this, this.state.user.id, this.state.user.email)}>Save</div>
+                                <div className="ui primary button" id="save" onClick={this.handleChange.bind(this, this.state.user.id, this.state.user.email)}>Save</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>
@@ -217,21 +221,21 @@ export default class Dashboard extends React.Component {
                             <div className="ui form addPost">
                                 <div className="field">
                                     <label>Title</label>
-                                    <input type="text" name="title" placeholder="Enter title here"/>
+                                    <input type="text" name="title" id="title" placeholder="Enter title here"/>
                                 </div>
                                 <div className="field">
                                     <label>Outline</label>
-                                    <input type="text" name="outline" placeholder="Enter outline here"/>
+                                    <input type="text" name="outline" id="outline" placeholder="Enter outline here"/>
                                 </div>
                                 <div className="field">
                                     <label>Content</label>
-                                    <textarea name="content" placeholder="Enter content here"></textarea>
+                                    <textarea name="content" id="content" placeholder="Enter content here"></textarea>
                                 </div>
-                                <div className="ui primary button" onClick={this.handleCreate.bind(this, this.state.user.username)}>Create</div>
+                                <div className="ui primary button" id="addPost" onClick={this.handleCreate.bind(this, this.state.user.username)}>Create</div>
                                 <div className="ui success message">
                                     Successfully!
                                 </div>
-                                <div className="ui error message"></div>
+                                <div className="ui error message" id="addPost-error"></div>
                             </div>
                         </div>
                     </div>
@@ -249,7 +253,7 @@ export default class Dashboard extends React.Component {
                                     Manage Your Posts
                                 </div>
                             </div>
-                            <div className="ui cards">
+                            <div className="ui cards" id="posts">
                                 {this.state.posts.map( (post) => {
                                     return (
                                         <div key={ post.id } className="card">
@@ -267,8 +271,8 @@ export default class Dashboard extends React.Component {
                                             </div>
                                             <div className="extra content">
                                                 <div className="ui two buttons">
-                                                    <Link to={`/dashboard/edit/${post.id}`} className="ui basic green button">Edit</Link> 
-                                                    <Link to={`/dashboard/delete/${post.id}`} className="ui basic red button">Delete</Link> 
+                                                    <Link to={`/dashboard/edit/${post.id}`} id="editPost" className="ui basic green button">Edit</Link> 
+                                                    <Link to={`/dashboard/delete/${post.id}`} id="deletePost" className="ui basic red button">Delete</Link> 
                                                 </div>
                                             </div>                                            
                                         </div> 

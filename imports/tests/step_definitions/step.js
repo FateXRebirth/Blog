@@ -28,6 +28,12 @@ module.exports = function() {
         expect(browser.isExisting(element)).toBe(true);
     });
 
+    this.Then(/^"([^"]*)" should not be on the page$/, function(arg) {
+        let element = '.' + arg;
+        expect(browser.isVisible(element)).toBe(false);
+        expect(browser.isExisting(element)).toBe(false);
+    });
+
     this.Then(/^I should see "([^"]*)" button$/, function (arg1) {
         let btn = null;
         switch(arg1) {
@@ -49,12 +55,65 @@ module.exports = function() {
             case "register":
                 btn = "#register";
                 break;
+            case "save":
+                btn = "#save";
+                break;
+            case "create":
+                btn = "#addPost";
+                break;
+            case "edit":
+                btn = "#editPost";
+                break;
+            case "delete":
+                btn = "#deletePost";
+                break;
             default:
                 btn = "#" + arg1;
                 break;
         }
         expect(browser.isVisible(btn)).toBe(true);
         expect(browser.isExisting(btn)).toBe(true);
+    });
+
+    this.Then(/^I should not see "([^"]*)" button$/, function (arg1) {
+        let btn = null;
+        switch(arg1) {
+            case "Log In":
+                btn = "#log-in";
+                break;
+            case "Sign Up":
+                btn = "#sign-up";
+                break;
+            case "Log Out":
+                btn = "#log-out";
+                break;
+            case "Dashboard":
+                btn = "#dashboard";
+                break;
+            case "login":
+                btn = "#login";
+                break;
+            case "register":
+                btn = "#register";
+                break;
+            case "save":
+                btn = "#save";
+                break;
+            case "create":
+                btn = "#addPost";
+                break;
+            case "edit":
+                btn = "#editPost";
+                break;
+            case "delete":
+                btn = "#deletePost";
+                break;
+            default:
+                btn = "#" + arg1;
+                break;
+        }
+        expect(browser.isVisible(btn)).toBe(false);
+        expect(browser.isExisting(btn)).toBe(false);
     });
 
     this.When(/^I press "([^"]*)" button$/, function(arg1) {
@@ -78,6 +137,18 @@ module.exports = function() {
             case "register":
                 btn = "#register";
                 break;
+            case "save":
+                btn = "#save";
+                break;
+            case "create":
+                btn = "#addPost";
+                break;
+            case "edit":
+                btn = "#editPost";
+                break;
+            case "delete":
+                btn = "#deletePost";
+                break;
             default:
                 btn = "#" + arg1;
                 break;
@@ -91,25 +162,31 @@ module.exports = function() {
         browser.setValue(element, arg2);
     });
 
-    this.Then(/^I should see "([^"]*)" message on the page$/, function(arg) {
-        var element = browser.element('#errors');
-        // console.log(element.getText());
-        // console.log(element.getText().indexOf(arg));
-        expect(element.getText().indexOf(arg)).not.toBe(-1);
+    this.Then(/^"([^"]*)" element's "([^"]*)" should be "([^"]*)"$/, function(arg1, arg2, arg3) {
+        expect(browser.getAttribute("#"+ arg1, arg2)).toBe(arg3);
     })
 
-    // Example
-    this.Then(/^I should see following messages on the page:$/, function (table) {
-        var element = browser.element('#errors').getText();        
+    this.Then(/^I should see "([^"]*)" message under "([^"]*)" form$/, function(arg1, arg2) {
+        var element = browser.element('.'+ arg2 + '.error');
+        expect(element.getText().indexOf(arg1)).not.toBe(-1);
+    })
+
+    this.Then(/^I should see following messages under "([^"]*)" form:$/, function (arg1, table) {
+        // Write code here that turns the phrase above into concrete actions
+        var element = browser.element('.'+ arg1 + '.error').getText();   
         var exist = -1;
         table.hashes().forEach( (row) => {
-            // console.log(row.Message);
-            // console.log(element.indexOf(row.Message));
             if(element.indexOf(row.Message) !== -1) {
                 exist = 1;
             }
         })
         expect(exist).not.toBe(-1);
+    });
+
+    this.Then(/^post "([^"]*)" "([^"]*)" should be in posts$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let title = arg1;
+        let outline = arg2;
     });
     
 };

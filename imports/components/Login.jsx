@@ -96,7 +96,7 @@ class Login extends React.Component {
                             <div className="ui fluid large teal button" id="login" onClick={this.handleLogin.bind(this)}>Login</div>
                         </div>
 
-                        <div className="ui error message" id="errors"></div>
+                        <div className="ui error message"></div>
 
                     </form>
 
