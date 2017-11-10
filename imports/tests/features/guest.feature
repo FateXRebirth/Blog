@@ -26,7 +26,7 @@ Scenario: Register with new User?
 @watch
 Scenario: Register with empty
     When I press "register" button
-    Then I should see following messages on the page:
+    Then I should see following messages under "signup" form:
     | Message |
     | Please enter your username |
     | Please enter your e-mail |
@@ -44,7 +44,7 @@ Scenario: Register with existing User
     And I fill in "confirmation" with "123456"
     And I press "register" button
     Then I should be on the "register" page
-    Then I should see "Email exist" message on the page
+    Then I should see "Email exist" message under "signup" form
 
 @watch
 Scenario: Register with different password
@@ -54,7 +54,7 @@ Scenario: Register with different password
     And I fill in "confirmation" with "1234567"
     And I press "register" button
     Then I should be on the "register" page
-    Then I should see "Password and confirmation should be same" message on the page
+    Then I should see "Password and confirmation should be same" message under "signup" form
 
 @watch
 Scenario: Visit blog page
@@ -70,10 +70,4 @@ Scenario: Visit dashboard page
 Scenario: Visit wrong page
     Then I visit "error" page
     Then I should be on the "notFound" page
-
-@Example
-Scenario: The persisted messages are displayed
-  Given there are the following messages:
-    | Message     | Username | Time     | User ID |
-    | Hi everyone | Person1  | 08:00:00 | 1       |
-    | Hi          | Person2  | 07:00:00 | 2       |
+    Then I visit "index" page
