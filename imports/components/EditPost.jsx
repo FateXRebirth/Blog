@@ -123,8 +123,8 @@ class EditPost extends React.Component {
                                 <label>Content</label>
                                 <textarea name="content" value={this.state.content} onChange={this.onContentChange.bind(this)}></textarea>
                             </div>
-                            <div className="ui primary button" onClick={this.handleChange.bind(this, this.props.match.params.id)}>Change</div>
-                            <div className="ui secondary button" onClick={this.handleCancel.bind(this)}>Cancel</div>
+                            <div className="ui primary button" id="edit" onClick={this.handleChange.bind(this, this.props.match.params.id)}>Change</div>
+                            <div className="ui secondary button" id="cancel" onClick={this.handleCancel.bind(this)}>Cancel</div>
                             <div className="ui success message">
                                 Successfully!
                             </div>

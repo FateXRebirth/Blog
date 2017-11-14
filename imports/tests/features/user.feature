@@ -121,19 +121,31 @@ Scenario: Add post with empty
     | Please enter title |
     | Please enter a outline |
     | Please enter content |
-    Then post "title" "outline" should be in posts
-
-@
+    
+@watch
 Scenario: Add post with new
     When I fill in "title" with "Title"
     And I fill in "outline" with "Outline"
     And I fill in "content" with "Content"
     And I press "create" button
     Then I should be on the "dashboard" page
-    
+    Then post "Title" "Outline" should be in posts
 
+@
 Scenario: Edit post that we create
+    When I edit the post with title "Title" and outline "Outline"
+    Then "editpostPage" should be on the page
+    Then I should be on the "edit" page
+    Then I should see "edit" button
+    Then I should see "cancel" button
+   
+@
 Scenario: Delete post that we create
+    When I delete the post with title "Title" and outline "Outline"
+    Then "deletepostPage" should be on the page
+    Then I should be on the "delete" page
+    Then I should see "delete" button
+    Then I should see "cancel" button
 
 @watch
 Scenario: Log out

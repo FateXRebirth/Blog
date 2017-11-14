@@ -15,11 +15,13 @@ module.exports = function() {
         let url = null;
         if(arg == 'index') {
             url = "http://localhost:3000/";
+        } else if (arg == 'edit' || arg == 'delete'){
+            url = "http://localhost:3000/dashboard/" + arg;
         } else {
             url = "http://localhost:3000/" + arg;
         }
         expect(browser.getTitle()).toBe('Blog | Modern, Flexible and Customize');
-        expect(browser.getUrl()).toEqual(url);
+        expect(browser.getUrl()).toContain(url);
     });
 
     this.Then(/^"([^"]*)" should be on the page$/, function(arg) {
@@ -61,11 +63,20 @@ module.exports = function() {
             case "create":
                 btn = "#addPost";
                 break;
-            case "edit":
+            case "editPost":
                 btn = "#editPost";
                 break;
-            case "delete":
+            case "deletePost":
                 btn = "#deletePost";
+                break;
+            case "edit":
+                btn = "#edit";
+                break;
+            case "delete":
+                btn = "#delete";
+                break;
+            case "cancel":
+                btn = "#cancel";
                 break;
             default:
                 btn = "#" + arg1;
@@ -102,11 +113,20 @@ module.exports = function() {
             case "create":
                 btn = "#addPost";
                 break;
-            case "edit":
+            case "editPost":
                 btn = "#editPost";
                 break;
-            case "delete":
+            case "deletePost":
                 btn = "#deletePost";
+                break;
+            case "edit":
+                btn = "#edit";
+                break;
+            case "delete":
+                btn = "#delete";
+                break;
+            case "cancel":
+                btn = "#cancel";
                 break;
             default:
                 btn = "#" + arg1;
@@ -143,11 +163,20 @@ module.exports = function() {
             case "create":
                 btn = "#addPost";
                 break;
-            case "edit":
+            case "editPost":
                 btn = "#editPost";
                 break;
-            case "delete":
+            case "deletePost":
                 btn = "#deletePost";
+                break;
+            case "edit":
+                btn = "#edit";
+                break;
+            case "delete":
+                btn = "#delete";
+                break;
+            case "cancel":
+                btn = "#cancel";
                 break;
             default:
                 btn = "#" + arg1;
@@ -185,8 +214,17 @@ module.exports = function() {
 
     this.Then(/^post "([^"]*)" "([^"]*)" should be in posts$/, function (arg1, arg2) {
         // Write code here that turns the phrase above into concrete actions
-        let title = arg1;
-        let outline = arg2;
+        let correct = -1;
+        let title, outline;
+        let posts = browser.element('#posts').elements('.card');
+        Array.from(posts.value).forEach( (post) => {
+            title = post.element('.header').getText()
+            outline = post.element('.description').getText();
+            if(title == arg1 && outline == arg2){
+                correct = 1;
+            }
+        });
+        expect(correct).toBe(1);
     });
     
 };
