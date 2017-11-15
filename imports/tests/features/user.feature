@@ -131,21 +131,68 @@ Scenario: Add post with new
     Then I should be on the "dashboard" page
     Then post "Title" "Outline" should be in posts
 
-@
+@watch
 Scenario: Edit post that we create
     When I edit the post with title "Title" and outline "Outline"
     Then "editpostPage" should be on the page
     Then I should be on the "edit" page
     Then I should see "edit" button
     Then I should see "cancel" button
-   
-@
+    And I fill in "title" with "Title2"
+    And I fill in "outline" with "Outline2"
+    And I fill in "content" with "Content2"
+    And I press "edit" button
+    Then I should be on the "dashboard" page
+    Then post "Title" "Outline" should not be in posts
+    Then post "Title2" "Outline2" should be in posts
+
+@watch
+Scenario: Edit post that we create but cancel
+    When I edit the post with title "Title2" and outline "Outline2"
+    Then "editpostPage" should be on the page
+    Then I should be on the "edit" page
+    Then I should see "edit" button
+    Then I should see "cancel" button
+    And I press "cancel" button
+    Then I should be on the "dashboard" page
+    Then post "Title2" "Outline2" should be in posts
+
+@watch
+Scenario: Edit post with origin data
+    When I edit the post with title "Title2" and outline "Outline2"
+    Then "editpostPage" should be on the page
+    Then I should be on the "edit" page
+    Then I should see "edit" button
+    Then I should see "cancel" button
+    And I fill in "title" with "Title"
+    And I fill in "outline" with "Outline"
+    And I fill in "content" with "Content"
+    And I press "edit" button
+    Then I should be on the "dashboard" page
+    Then post "Title2" "Outline2" should not be in posts
+    Then post "Title" "Outline" should be in posts
+
+@watch
+Scenario: Delete post that we create but cancel
+    When I delete the post with title "Title" and outline "Outline"
+    Then "deletepostPage" should be on the page
+    Then I should be on the "delete" page
+    Then I should see "delete" button
+    Then I should see "cancel" button
+    And I press "cancel" button
+    Then I should be on the "dashboard" page
+    Then post "Title" "Outline" should be in posts
+
+@watch
 Scenario: Delete post that we create
     When I delete the post with title "Title" and outline "Outline"
     Then "deletepostPage" should be on the page
     Then I should be on the "delete" page
     Then I should see "delete" button
     Then I should see "cancel" button
+    And I press "delete" button
+    Then I should be on the "dashboard" page
+    Then post "Title" "Outline" should not be in posts
 
 @watch
 Scenario: Log out

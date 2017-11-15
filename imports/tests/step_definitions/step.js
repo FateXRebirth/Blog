@@ -226,5 +226,48 @@ module.exports = function() {
         });
         expect(correct).toBe(1);
     });
+
+    this.Then(/^post "([^"]*)" "([^"]*)" should not be in posts$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let correct = -1;
+        let title, outline;
+        let posts = browser.element('#posts').elements('.card');
+        Array.from(posts.value).forEach( (post) => {
+            title = post.element('.header').getText()
+            outline = post.element('.description').getText();
+            if(title == arg1 && outline == arg2){
+                correct = 1;
+            }
+        });
+        expect(correct).toBe(-1);
+    });
+
+    this.When(/^I edit the post with title "([^"]*)" and outline "([^"]*)"$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let title, outline, target;
+        let posts = browser.element('#posts').elements('.card');
+        Array.from(posts.value).forEach( (post) => {
+            title = post.element('.header').getText()
+            outline = post.element('.description').getText();
+            if(title == arg1 && outline == arg2){
+                target = post;
+            }            
+        });
+        target.element('.extra').element('.buttons').element('#editPost').click();
+    });
+
+    this.When(/^I delete the post with title "([^"]*)" and outline "([^"]*)"$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let title, outline, target;
+        let posts = browser.element('#posts').elements('.card');
+        Array.from(posts.value).forEach( (post) => {
+            title = post.element('.header').getText()
+            outline = post.element('.description').getText();
+            if(title == arg1 && outline == arg2){
+                target = post;
+            }            
+        });
+        target.element('.extra').element('.buttons').element('#deletePost').click();
+    });
     
 };

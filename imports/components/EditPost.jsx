@@ -113,15 +113,15 @@ class EditPost extends React.Component {
                         <div className="ui form editPost">
                             <div className="field">
                                 <label>Title</label>
-                                <input type="text" name="title" value={this.state.title} onChange={this.onTitleChange.bind(this)}/>
+                                <input type="text" name="title" id="title" value={this.state.title} onChange={this.onTitleChange.bind(this)}/>
                             </div>
                             <div className="field">
                                 <label>Outline</label>
-                                <input type="text" name="outline" value={this.state.outline} onChange={this.onOutlineChange.bind(this)}/>
+                                <input type="text" name="outline" id="outline" value={this.state.outline} onChange={this.onOutlineChange.bind(this)}/>
                             </div>
                             <div className="field">
                                 <label>Content</label>
-                                <textarea name="content" value={this.state.content} onChange={this.onContentChange.bind(this)}></textarea>
+                                <textarea name="content" id="content" value={this.state.content} onChange={this.onContentChange.bind(this)}></textarea>
                             </div>
                             <div className="ui primary button" id="edit" onClick={this.handleChange.bind(this, this.props.match.params.id)}>Change</div>
                             <div className="ui secondary button" id="cancel" onClick={this.handleCancel.bind(this)}>Cancel</div>

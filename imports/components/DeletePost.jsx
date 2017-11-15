@@ -29,8 +29,8 @@ class DeletePost extends React.Component {
                     </div>
                     <div className="extra content">
                         <div className="ui two buttons">
-                            <div className="ui red button" onClick={this.handleDelete.bind(this)}>Delete</div> 
-                            <div className="ui black button" onClick={this.handleCancel.bind(this)}>Cancel</div> 
+                            <div className="ui red button" id="delete" onClick={this.handleDelete.bind(this)}>Delete</div> 
+                            <div className="ui black button" id="cancel" onClick={this.handleCancel.bind(this)}>Cancel</div> 
                         </div>
                     </div>                      
                     
