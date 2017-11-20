@@ -1,10 +1,13 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Random } from 'meteor/random';
 import { Posts } from '../api/posts/posts.js';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { user_logout } from '../actions/auth.js';
 
-export default class Dashboard extends React.Component {
+class Dashboard extends React.Component {
     
     constructor(props) {
         super(props);
@@ -12,6 +15,13 @@ export default class Dashboard extends React.Component {
             user: {id: '', username: '', email: ''},
             posts: [],
         }                
+    }
+
+    handleDelete(id) {
+        Meteor.call('DeleteUser', id);
+        this.props.user_logout(null);
+        localStorage.clear();
+        this.props.history.push('/');
     }
 
     handleChange(id, email) {
@@ -204,6 +214,9 @@ export default class Dashboard extends React.Component {
                             </div>
                         </div>
                     </div>
+                    <div className="delete">
+                        <button className="ui red button" onClick={this.handleDelete.bind(this,this.state.user.id)}>Delete this account</button>
+                    </div>
                 </div>
                 
                 <div className="post">
@@ -286,3 +299,9 @@ export default class Dashboard extends React.Component {
         )
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({user_logout}, dispatch)
+}
+
+export default withRouter(connect(null, mapDispatchToProps)(Dashboard));
