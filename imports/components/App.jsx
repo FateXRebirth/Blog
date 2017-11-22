@@ -78,8 +78,30 @@ class App extends React.Component {
                     <Route path='/notFound' component={NotFound} />
                     <Redirect to='/notFound' />      
                 </Switch>
-                <Footer />      
+                <Footer />
+
+                {/* Just for model element */}
+                <div className="ui mini modal deleteUser">
+                    <div className="header">
+                    Delete Your Account
+                    </div>
+                    <div className="content">
+                    <p>Are you sure you want to delete your account?</p>
+                    </div>
+                    <div className="actions">
+                    <div className="ui negative button" id="no">
+                        No
+                    </div>
+                    <div className="ui positive right labeled icon button" id="yes">
+                        Yes
+                        <i className="checkmark icon"></i>
+                    </div>
+                    </div>
+                </div>
+  
             </div>
+
+            
         );
     }
 }

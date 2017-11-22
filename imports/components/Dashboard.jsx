@@ -14,14 +14,12 @@ class Dashboard extends React.Component {
         this.state = {
             user: {id: '', username: '', email: ''},
             posts: [],
+            delete: null
         }                
     }
 
     handleDelete(id) {
-        Meteor.call('DeleteUser', id);
-        this.props.user_logout(null);
-        localStorage.clear();
-        this.props.history.push('/');
+        let value = $('.mini.modal.deleteUser').modal('show');
     }
 
     handleChange(id, email) {
@@ -79,7 +77,28 @@ class Dashboard extends React.Component {
                 console.log(error);
             }
         })
-        
+
+        $('.mini.modal.deleteUser').modal({
+            closable  : false,
+            onDeny    : function(){
+                this.setState({ delete: false });
+                return true;
+            }.bind(this),
+            onApprove : function() {
+                this.setState({ delete: true });
+                return true;
+            }.bind(this),
+            onHidden : function() {
+                if(this.state.delete) {
+                    Meteor.call('DeleteUser', this.state.user.id);
+                    Meteor.call('DeletePostUsingName', this.state.user.username);
+                    this.props.user_logout(null);
+                    localStorage.clear();
+                    this.props.history.push('/');
+                }
+            }.bind(this)
+        });
+            
         $('.ui.form.changeUser').form({
             keyboardShortcuts: false,
             fields: {
@@ -215,7 +234,7 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                     <div className="delete">
-                        <button className="ui red button" onClick={this.handleDelete.bind(this,this.state.user.id)}>Delete this account</button>
+                        <button className="ui red button" id="account" onClick={this.handleDelete.bind(this,this.state.user.id)}>Delete this account</button>
                     </div>
                 </div>
                 

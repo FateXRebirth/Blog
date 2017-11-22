@@ -83,5 +83,12 @@ Meteor.methods({
         } catch(e) {
             throw new Meteor.Error('Can not get posts using username');
         }
+    },
+    DeletePostUsingName: function(username) {
+        try {
+            return Posts.remove({ username: username } );
+        } catch(e) {
+            throw new Meteor.Error('Can not delete');
+        }
     }
 })

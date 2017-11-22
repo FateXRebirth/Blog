@@ -101,5 +101,15 @@ if (Meteor.isServer) {
                 } catch (error) { done(error) }
             })
         })
+
+        it('can delete post with exist username', () => {     
+            Meteor.call('DeletePostUsingName', 'admin', (error, result) => {
+                try {
+                    console.log(result);
+                    expect(result.length).to.equal(0);
+                    done()
+                } catch (error) { done(error) }
+            })
+        })        
     })
 }
