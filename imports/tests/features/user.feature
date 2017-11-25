@@ -130,6 +130,9 @@ Scenario: Add post with new
     And I press "create" button
     Then I should be on the "dashboard" page
     Then post "Title" "Outline" should be in posts
+    And I visit "blog" page
+    Then post "Title" "Outline" should be in blog
+    And I visit "dashboard" page
 
 @watch
 Scenario: Edit post that we create

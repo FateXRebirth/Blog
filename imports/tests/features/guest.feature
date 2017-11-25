@@ -20,9 +20,6 @@ Scenario: Register
     Then I should be on the "register" page
     Then I should see "register" button
 
-@TODO
-Scenario: Register with new User?
-
 @watch
 Scenario: Register with empty
     When I press "register" button
@@ -55,6 +52,24 @@ Scenario: Register with different password
     And I press "register" button
     Then I should be on the "register" page
     Then I should see "Password and confirmation should be same" message under "signup" form
+
+@TODO
+Scenario: Register with new User
+    When I fill in "username" with "test"
+    And I fill in "email" with "test@test.com"
+    And I fill in "password" with "123456"
+    And I fill in "confirmation" with "123456"
+    And I press "register" button
+    Then I should be on the "blog" page
+    Then I visit "dashboard" page
+    And I press "account" button
+    Then I should see "no" button
+    Then I should see "yes" button 
+    Then I press "no" button
+    Then I should be on the "dashboard" page
+    And I press "account" button
+    Then I press "yes" button
+    Then I should be on the "index" page
 
 @watch
 Scenario: Visit blog page

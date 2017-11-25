@@ -78,6 +78,15 @@ module.exports = function() {
             case "cancel":
                 btn = "#cancel";
                 break;
+            case "account":
+                btn = '#account';
+                break;
+            case "no":
+                btn = '#no';
+                break;
+            case "yes":
+                btn = '#yes';
+                break;
             default:
                 btn = "#" + arg1;
                 break;
@@ -128,6 +137,15 @@ module.exports = function() {
             case "cancel":
                 btn = "#cancel";
                 break;
+            case "account":
+                btn = '#account';
+                break;
+            case "no":
+                btn = '#no';
+                break;
+            case "yes":
+                btn = '#yes';
+                break;
             default:
                 btn = "#" + arg1;
                 break;
@@ -177,6 +195,15 @@ module.exports = function() {
                 break;
             case "cancel":
                 btn = "#cancel";
+                break;
+            case "account":
+                btn = '#account';
+                break;
+            case "no":
+                btn = '#no';
+                break;
+            case "yes":
+                btn = '#yes';
                 break;
             default:
                 btn = "#" + arg1;
@@ -242,9 +269,42 @@ module.exports = function() {
         expect(correct).toBe(-1);
     });
 
+    this.Then(/^post "([^"]*)" "([^"]*)" should be in blog$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let correct = -1;
+        let title, outline;
+        browser.waitForVisible('article', 2000);
+        let articles = browser.element('.blogPage').elements('.article');
+        Array.from(articles.value).forEach( (article) => {
+            title = article.element('.link-text').getText()
+            outline = article.element('.outline').getText();
+            if(title == arg1 && outline == arg2){
+                correct = 1;
+            }
+        });
+        expect(correct).toBe(1);
+    });
+
+    this.Then(/^post "([^"]*)" "([^"]*)" should not be in blog$/, function (arg1, arg2) {
+        // Write code here that turns the phrase above into concrete actions
+        let correct = -1;
+        let title, outline;
+        browser.waitForVisible('article', 2000);
+        let articles = browser.element('.blogPage').elements('.article');
+        Array.from(articles.value).forEach( (article) => {
+            title = article.element('.link-text').getText()
+            outline = article.element('.outline').getText();
+            if(title == arg1 && outline == arg2){
+                correct = 1;
+            }
+        });
+        expect(correct).toBe(-1);
+    });
+
     this.When(/^I edit the post with title "([^"]*)" and outline "([^"]*)"$/, function (arg1, arg2) {
         // Write code here that turns the phrase above into concrete actions
         let title, outline, target;
+        browser.waitForVisible('.card', 2000);
         let posts = browser.element('#posts').elements('.card');
         Array.from(posts.value).forEach( (post) => {
             title = post.element('.header').getText()
@@ -259,6 +319,7 @@ module.exports = function() {
     this.When(/^I delete the post with title "([^"]*)" and outline "([^"]*)"$/, function (arg1, arg2) {
         // Write code here that turns the phrase above into concrete actions
         let title, outline, target;
+        browser.waitForVisible('.card', 2000);
         let posts = browser.element('#posts').elements('.card');
         Array.from(posts.value).forEach( (post) => {
             title = post.element('.header').getText()

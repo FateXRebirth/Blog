@@ -30,7 +30,7 @@ export default class Blog extends React.Component {
                 
                 {this.state.posts.map(function(post) {
                     return (
-                        <article key={post.id} className="">
+                        <article key={post.id} className="article">
                             <div className="title">
                                 <header className="ui container">
                                     <div className="link"><Link to={`/blog/${post.id}`} className="link-text"> { post.title } </Link></div>
@@ -41,7 +41,7 @@ export default class Blog extends React.Component {
                             <div className="content">
                                 <div className="ui container">
                                     <div className="text">
-                                        <p> { post.outline } </p>
+                                        <p className="outline"> { post.outline } </p>
                                         <Link to={`/blog/${post.id}`} className="button-text" > Continue reading </Link>
                                     </div>
                                     {/* <div className="image">
