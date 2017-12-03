@@ -53,24 +53,6 @@ Scenario: Register with different password
     Then I should be on the "register" page
     Then I should see "Password and confirmation should be same" message under "signup" form
 
-@TODO
-Scenario: Register with new User
-    When I fill in "username" with "test"
-    And I fill in "email" with "test@test.com"
-    And I fill in "password" with "123456"
-    And I fill in "confirmation" with "123456"
-    And I press "register" button
-    Then I should be on the "blog" page
-    Then I visit "dashboard" page
-    And I press "account" button
-    Then I should see "no" button
-    Then I should see "yes" button 
-    Then I press "no" button
-    Then I should be on the "dashboard" page
-    And I press "account" button
-    Then I press "yes" button
-    Then I should be on the "index" page
-
 @watch
 Scenario: Visit blog page
     Then I visit "blog" page
@@ -86,3 +68,27 @@ Scenario: Visit wrong page
     Then I visit "error" page
     Then I should be on the "notFound" page
     Then I visit "index" page
+
+@watch
+Scenario: Register with new User
+    Then I visit "register" page
+    When I fill in "username" with "test"
+    And I fill in "email" with "test@test.com"
+    And I fill in "password" with "123456"
+    And I fill in "confirmation" with "123456"
+    And I press "register" button
+    Then I should be on the "blog" page
+    Then I visit "dashboard" page
+    And I press "account" button
+    Then I should wait for "2000" ms
+    Then I should see "no" button
+    Then I should see "yes" button 
+    Then I press "no" button
+    Then I should wait for "2000" ms
+    Then I should be on the "dashboard" page
+    And I press "account" button
+    Then I should wait for "2000" ms
+    Then I press "yes" button
+    Then I should wait for "2000" ms
+    Then I should be on the "index" page
+    Then I should wait for "2000" ms

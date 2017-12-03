@@ -330,5 +330,10 @@ module.exports = function() {
         });
         target.element('.extra').element('.buttons').element('#deletePost').click();
     });
+
+    this.When(/^I should wait for "([^"]*)" ms$/, function(arg) {
+        let time = parseInt(arg);
+        browser.pause(time);
+    })
     
 };
